@@ -11,7 +11,8 @@ var game_file_list = [
 	"bin-debug/starlingswf/SwfFrameInfo.js",
 	"bin-debug/starlingswf/display/SwfMovieClip.js",
 	"bin-debug/game/scene/fight/GameFightView.js",
-	"bin-debug/starlingswf/SwfAnimationInfo.js",
+	"bin-debug/starlingswf/game/StarlingSwfUtils.js",
+	"bin-debug/game/scene/start/GameInfoView.js",
 	"bin-debug/game/scene/start/GameOverView.js",
 	"bin-debug/game/GameSceneView.js",
 	"bin-debug/game/GameStartView.js",
@@ -35,8 +36,7 @@ var game_file_list = [
 	"bin-debug/game/scene/gameObj/Line.js",
 	"bin-debug/game/scene/gameObj/RedGirl.js",
 	"bin-debug/game/scene/gameObj/SourceView.js",
-	"bin-debug/game/scene/gameObj/StreakNum.js",
-	"bin-debug/starlingswf/game/StarlingSwfUtils.js",
+	"bin-debug/starlingswf/SwfAnimationInfo.js",
 	"bin-debug/GameData.js",
 	"bin-debug/game/scene/start/MusicView.js",
 	"bin-debug/game/scene/start/OptionView.js",
@@ -65,7 +65,7 @@ var game_file_list = [
 	"bin-debug/game/GamePlayView.js",
 	"bin-debug/starlingswf/game/StarlingSwfFactory.js",
 	"bin-debug/starlingswf/game/StarlingSwfMovieClip.js",
-	"bin-debug/game/scene/start/GameInfoView.js",
+	"bin-debug/game/scene/gameObj/StreakNum.js",
 	//----auto game_file_list end----
 ];
 

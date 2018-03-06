@@ -40,6 +40,8 @@ var Main = (function (_super) {
         var _this = _super.call(this) || this;
         _this._loadTimes = 0;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
+        // 扩展资源加载模块文件解析器
+        // http://edn.egret.com/cn/article/index/id/551
         RES.registerAnalyzer("starlingswf_sheet", starlingswf.StarlingSwfSheetAnalyzer);
         return _this;
     }
@@ -70,6 +72,7 @@ var Main = (function (_super) {
         //        if(String(this.swfFrame).indexOf(ShareUtils.isSetSwfFrame()) >= 0||String(this.swfFrame).indexOf(ShareUtils.shareSwfInfo) >= 0)//
         //        {
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
+        // 加载配置文件并解析
         RES.loadConfig("resource/resource.json", "resource/");
         //        }else
         //        {
@@ -85,6 +88,7 @@ var Main = (function (_super) {
         RES.loadGroup("initLoad");
     };
     Main.prototype.onGroupErr = function (e) {
+        // 先声明
         this._loadTimes++;
         if (this._loadTimes > 3)
             AlertPanel.i().showErr("网络异常，请重新进入游戏");
@@ -92,6 +96,7 @@ var Main = (function (_super) {
             RES.loadGroup(e.groupName);
     };
     Main.prototype.onResourceLoadComplete = function (event) {
+        // event.groupName
         if (event.groupName == "initLoad") {
             this.loadingView.onLoadComplete(this.onStartGame, this);
         }

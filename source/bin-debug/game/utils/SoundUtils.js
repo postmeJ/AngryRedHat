@@ -13,6 +13,7 @@ var SoundUtils = (function () {
         return this._instance == null ? this._instance = new SoundUtils() : this._instance;
     };
     SoundUtils.prototype.initSound = function () {
+        // 名字在resource.json中定义
         this.bgSound = new SoundBase("bgSound");
         this.winSound = new SoundBase("winSound");
         this.missSound = new SoundBase("missSound");
@@ -25,6 +26,8 @@ var SoundUtils = (function () {
     SoundUtils.prototype.playNum = function () {
         if (GameData.closeMusic)
             return;
+        // 生成一个新的 SoundChannel 对象来播放该声音???
+        // 如果已经播放了其他音频,怎么样???
         this.numSound.play();
     };
     SoundUtils.prototype.playBeHit = function () {

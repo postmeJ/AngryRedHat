@@ -19,32 +19,38 @@ var MusicView = (function (_super) {
         return _this;
     }
     MusicView.prototype.initView = function () {
+        // mask
         var spMask = new egret.Sprite();
         this.addChild(spMask);
         var mask = ResourceUtils.createBitmapByName("maskImage");
         spMask.addChild(mask);
         spMask.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchThis, this);
+        // spContainer
         this.spContainer = new egret.Sprite();
         this.addChild(this.spContainer);
         var wd = Const.SCENT_WIDTH / 8;
         var hd = Const.SCENT_HEIGHT / 4;
         this.spContainer.x = wd;
         this.spContainer.y = hd;
+        // music bg image
         var bg = ResourceUtils.createBitmapByName("optionMusicBgImage");
         this.spContainer.addChild(bg);
+        // close
         var close = new egret.Sprite();
         this.spContainer.addChild(close);
         var spclose = ResourceUtils.createBitmapByName("option7Image");
         close.addChild(spclose);
+        // note: 默认为false
         close.touchEnabled = true;
         close.x = this.spContainer.width - close.width * 0.7;
         close.y = -close.height * 0.4;
         close.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closePop, this);
+        // soundBooBg背景音
         var soundBooBg = new egret.Sprite();
         this.spContainer.addChild(soundBooBg);
-        this.spguanbg = ResourceUtils.createBitmapByName("option5Image");
+        this.spguanbg = ResourceUtils.createBitmapByName("option5Image"); // option5Image no
         soundBooBg.addChild(this.spguanbg);
-        this.spkaibg = ResourceUtils.createBitmapByName("option6Image");
+        this.spkaibg = ResourceUtils.createBitmapByName("option6Image"); // option6Image yes
         soundBooBg.addChild(this.spkaibg);
         this.spguanbg.x = 0;
         this.spkaibg.x = 30;
@@ -52,6 +58,7 @@ var MusicView = (function (_super) {
         soundBooBg.y = 84;
         soundBooBg.touchEnabled = true;
         soundBooBg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickBgHandler, this);
+        // soundBoo效果音
         var soundBoo = new egret.Sprite();
         this.spContainer.addChild(soundBoo);
         this.spguan = ResourceUtils.createBitmapByName("option5Image");
@@ -64,6 +71,7 @@ var MusicView = (function (_super) {
         soundBoo.y = 148;
         soundBoo.touchEnabled = true;
         soundBoo.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
+        // 初始状态
         if (GameData.closeBgMusic) {
             this.spguanbg.visible = true;
             this.spkaibg.visible = false;
@@ -110,6 +118,7 @@ var MusicView = (function (_super) {
         }
     };
     MusicView.prototype.closePop = function (e) {
+        // ??? 这个判断出于什么考虑
         if (this.parent)
             GameData.isClickBtn = false;
         this.visible = false;

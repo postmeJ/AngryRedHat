@@ -17,8 +17,8 @@ class GameStartView extends egret.Sprite{
 
         var startBtn:MyButtonForGame = new MyButtonForGame("startBtnImage","startBtnImage");
         this.addChild(startBtn);
-        startBtn.y = Const.SCENT_HEIGHT - startBtn.height -30;
         startBtn.x= Const.SCENT_WIDTH/2- startBtn.width/2;
+        startBtn.y = Const.SCENT_HEIGHT - startBtn.height -30;
         startBtn.setClick(this.onStartGameHandler.bind(this));
 
         var music_btn:MyButtonForGame = new MyButtonForGame("musicBtnImage","musicBtnImage");

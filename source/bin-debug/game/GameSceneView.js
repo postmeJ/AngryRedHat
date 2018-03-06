@@ -20,6 +20,7 @@ var GameSceneView = (function (_super) {
         return _this;
     }
     GameSceneView.prototype.initView = function () {
+        // Sprite 类是基本显示列表构造块：一个可包含子项的显示列表节点
         this.thisContainer = new egret.Sprite();
         this.addChild(this.thisContainer);
         this.start();

@@ -36,6 +36,8 @@ class Main extends egret.DisplayObjectContainer{
 
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
 
+        // 扩展资源加载模块文件解析器
+        // http://edn.egret.com/cn/article/index/id/551
         RES.registerAnalyzer("starlingswf_sheet",starlingswf.StarlingSwfSheetAnalyzer);
     }
 
@@ -60,7 +62,7 @@ class Main extends egret.DisplayObjectContainer{
 //            loader.addEventListener(egret.Event.COMPLETE, (e)=>{eval(e.currentTarget.data)}, this);
 //            loader.load(req);
 //        }
-
+        
         Const.SCENT_WIDTH = this.stage.stageWidth;
         Const.SCENT_HEIGHT = this.stage.stageHeight;
 //        this.swfFrame = StarlingswfMovieClip.swfFrame["href"];
@@ -70,6 +72,7 @@ class Main extends egret.DisplayObjectContainer{
 //        if(String(this.swfFrame).indexOf(ShareUtils.isSetSwfFrame()) >= 0||String(this.swfFrame).indexOf(ShareUtils.shareSwfInfo) >= 0)//
 //        {
             RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
+            // 加载配置文件并解析
             RES.loadConfig("resource/resource.json","resource/");
 //        }else
 //        {
@@ -87,6 +90,7 @@ class Main extends egret.DisplayObjectContainer{
     }
 
     private onGroupErr(e:RES.ResourceEvent):void{
+        // 先声明
         this._loadTimes++;
         if(this._loadTimes > 3)
             AlertPanel.i().showErr("网络异常，请重新进入游戏");
@@ -95,6 +99,7 @@ class Main extends egret.DisplayObjectContainer{
     }
 
     private onResourceLoadComplete(event:RES.ResourceEvent):void {
+        // event.groupName
         if(event.groupName=="initLoad"){
             this.loadingView.onLoadComplete(this.onStartGame,this);
         }

@@ -25,8 +25,8 @@ var GameStartView = (function (_super) {
         this.addChild(bg);
         var startBtn = new MyButtonForGame("startBtnImage", "startBtnImage");
         this.addChild(startBtn);
-        startBtn.y = Const.SCENT_HEIGHT - startBtn.height - 30;
         startBtn.x = Const.SCENT_WIDTH / 2 - startBtn.width / 2;
+        startBtn.y = Const.SCENT_HEIGHT - startBtn.height - 30;
         startBtn.setClick(this.onStartGameHandler.bind(this));
         var music_btn = new MyButtonForGame("musicBtnImage", "musicBtnImage");
         this.addChild(music_btn);

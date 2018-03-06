@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * Created by FCX on 3/14/2016.
  */
 class SoundBase extends egret.DisplayObjectContainer{
@@ -18,77 +18,82 @@ class SoundBase extends egret.DisplayObjectContainer{
     private _soundURL:string = "bgSound";
 
     private _soundChannel:egret.SoundChannel;
-    //Ä¬ÈÏ²¥·ÅÎ»ÖÃ£¬´ÓÍ·¿ªÊ¼µÄ
+    //é»˜è®¤æ’­æ”¾ä½ç½®ï¼Œä»å¤´å¼€å§‹çš„
     private _positon:number = 0;
-    //Ä¬ÈÏ²»Ñ­»·£¬ÉèÖÃÎª¸ºÊıÑ­»·
+    //é»˜è®¤ä¸å¾ªç¯ï¼Œè®¾ç½®ä¸ºè´Ÿæ•°å¾ªç¯
     private _loop:number = 1;
-    //µ±Ç°×´Ì¬0Î»¿Õ£¬1Î»²¥·Å£¬2Î»ÔİÍ£, 3±íÊ¾¼ÓÔØÍê³É,4±íÊ¾¼ÓÔØÊ§°Ü
+    //å½“å‰çŠ¶æ€0ä½ç©ºï¼Œ1ä½æ’­æ”¾ï¼Œ2ä½æš‚åœ, 3è¡¨ç¤ºåŠ è½½å®Œæˆ,4è¡¨ç¤ºåŠ è½½å¤±è´¥
     private _status:number = 0;
-    //¼ÓÔØÒôÆµ
+    //åŠ è½½éŸ³é¢‘
     private _loadSound() {
         if(RES.getRes(this._soundURL)){
+            // åŠ è½½
             this._sound = RES.getRes(this._soundURL);
         }else{
-            //Èç¹ûRESÖĞÎ´¼ÓÔØ¸Ã×ÊÔ´£¬³¢ÊÔ¾ø¶ÔÂ·¾¶¼ÓÔØÖ®¡£
+            //å¦‚æœRESä¸­æœªåŠ è½½è¯¥èµ„æºï¼Œå°è¯•ç»å¯¹è·¯å¾„åŠ è½½ä¹‹ã€‚
             this._sound.once(egret.Event.COMPLETE,this.loadComplete,this);
             this._sound.once(egret.IOErrorEvent.IO_ERROR,this.onLoadErr,this);
+
+            // å¯åŠ¨ä»æŒ‡å®š URL åŠ è½½å¤–éƒ¨éŸ³é¢‘æ–‡ä»¶çš„è¿‡ç¨‹???
+            // urlåœ¨å“ªé‡Œ?
+            // éš¾é“æ˜¯å¯¹åº”çš„url???
             this._sound.load(this._soundURL);
         }
     }
-    //¼ÓÔØÒôÆµÍê³É
+    //åŠ è½½éŸ³é¢‘å®Œæˆ
     private loadComplete (e:egret.Event) {
         this._status = 3;
-        var waring:string = "¼ÓÔØÍê³É";
+        var waring:string = "åŠ è½½å®Œæˆ";
         egret.log(waring);
-        //É¾³ı¼ÓÔØÊ§°ÜµÄ¼àÌı
+        //åˆ é™¤åŠ è½½å¤±è´¥çš„ç›‘å¬
         this._sound.removeEventListener(egret.IOErrorEvent.IO_ERROR,this.onLoadErr,this)
         this.dispatchEventWith(egret.Event.COMPLETE,false,waring);
     }
-    //¼ÓÔØÒôÆµÊ§°Ü
+    //åŠ è½½éŸ³é¢‘å¤±è´¥
     private onLoadErr (e:egret.IOErrorEvent) {
         this._status = 4;
-        var waring:string = "¼ÓÔØÊ§°Ü"+this._soundURL;
+        var waring:string = "åŠ è½½å¤±è´¥"+this._soundURL;
         egret.log(waring);
-        //É¾³ı¼ÓÔØ³É¹¦µÄ¼àÌı
+        //åˆ é™¤åŠ è½½æˆåŠŸçš„ç›‘å¬
         this._sound.removeEventListener(egret.Event.COMPLETE,this.loadComplete,this);
         this.dispatchEventWith(egret.IOErrorEvent.IO_ERROR,false,waring);
     }
-    //ÉèÖÃurl²¢ÖØĞÂ¼ÓÔØ
+    //è®¾ç½®urlå¹¶é‡æ–°åŠ è½½
     public setUrl(url:string) {
         this._soundURL = url;
         this._loadSound();
     }
-    //ÉèÖÃÑ­»·
+    //è®¾ç½®å¾ªç¯
     private looped(e:egret.Event){
         console.log("looped");
         this._soundChannel = null;
         this._positon = 0;
         this._status = 0;
-        var waring: string = "²¥·ÅÍê³É";
+        var waring: string = "æ’­æ”¾å®Œæˆ";
         if(this._loop >= 0) {
             this.dispatchEventWith(egret.Event.SOUND_COMPLETE,false,waring);
         } else {
             this.play();
         }
     }
-    //»ñÈ¡×´Ì¬
+    //è·å–çŠ¶æ€
     public getStatus() {
         return this._status;
     }
-    //ÉèÖÃÒôÁ¿
+    //è®¾ç½®éŸ³é‡
     public setVolume (volume:number) {
         console.log(this._status);
         if(1 === this._status)
             this._soundChannel.volume = volume / 100;
     }
-    //ÏÔÊ¾²¥·ÅÊ±¼ä
+    //æ˜¾ç¤ºæ’­æ”¾æ—¶é—´
     public showPosition ():number {
 
         if(1 === this._status)
             this._positon = this._soundChannel.position;
         return this._positon;
     }
-    //²¥·ÅÒôÆµ
+    //æ’­æ”¾éŸ³é¢‘
     public play() {
         if(4 === this._status){
             this._loadSound();
@@ -104,13 +109,13 @@ class SoundBase extends egret.DisplayObjectContainer{
 
         return this._status;
     }
-    //ÉèÖÃÑ­»·
+    //è®¾ç½®å¾ªç¯
     public setLoop(loop:number = 1):number{
         this._loop = loop;
 
         return loop;
     }
-    //ÉèÖÃÔİÍ£
+    //è®¾ç½®æš‚åœ
     public pause () {
         var temp = this._status;
         if(1 === temp){
@@ -121,7 +126,7 @@ class SoundBase extends egret.DisplayObjectContainer{
         egret.log(this._positon);
         return temp;
     }
-    //»Ö¸´
+    //æ¢å¤
     public resume () {
         var temp = this._status;
         if(2 === temp) {
@@ -131,7 +136,7 @@ class SoundBase extends egret.DisplayObjectContainer{
         egret.log(this._positon);
         return temp;
     }
-    //Í£Ö¹
+    //åœæ­¢
     public stop () {
         this._status = 0;
         this._positon = 0;

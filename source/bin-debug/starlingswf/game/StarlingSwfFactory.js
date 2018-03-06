@@ -16,6 +16,8 @@ var StarlingSwfFactory = (function () {
      * @returns {StarlingSwfFactory}
      */
     StarlingSwfFactory.getInstance = function () {
+        // 这种写法让我有些意外
+        // 确保只有一个实例
         if (StarlingSwfFactory._instance == null) {
             StarlingSwfFactory._instance = new StarlingSwfFactory();
         }

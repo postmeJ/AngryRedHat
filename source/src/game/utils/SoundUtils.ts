@@ -26,6 +26,7 @@ class SoundUtils{
 
     public initSound():void
     {
+        // 名字在resource.json中定义
         this.bgSound = new SoundBase("bgSound");
         this.winSound = new SoundBase("winSound");
         this.missSound = new SoundBase("missSound");
@@ -38,6 +39,8 @@ class SoundUtils{
     public playNum():void
     {
         if(GameData.closeMusic) return;
+        // 生成一个新的 SoundChannel 对象来播放该声音???
+        // 如果已经播放了其他音频,怎么样???
         this.numSound.play();
     }
     public playBeHit():void

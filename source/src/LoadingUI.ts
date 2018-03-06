@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+// 没有调用清除???
 class LoadingUI extends egret.Sprite{
 
     public constructor(){
@@ -73,6 +74,11 @@ class LoadingUI extends egret.Sprite{
         this.textField_power.fontFamily = "Black";
         this.textField_power.textAlign = "center";
 
+        // 使用的URLLoader, 而不是ImageLoader 
+        // http://developer.egret.com/cn/github/egret-docs/Engine2D/net/loadText/index.html
+        // dataFormat值的设置
+        // http://developer.egret.com/cn/apidoc/index/name/egret.URLLoader
+        // 如果 dataFormat 属性是 URLLoaderDataFormat.TEXTURE，则所接收的数据是一个包含位图数据的Texture对象
         var urlLoader:egret.URLLoader = new egret.URLLoader();
         urlLoader.addEventListener(egret.Event.COMPLETE,this.onComplete,this);
         urlLoader.dataFormat = egret.URLLoaderDataFormat.TEXTURE;
@@ -86,6 +92,7 @@ class LoadingUI extends egret.Sprite{
         this.bg = new egret.Bitmap();
         this.logo = new egret.Bitmap();
 
+        // DisplayObjectContainer 类是基本显示列表构造块：一个可包含子项的显示列表节点
         this.uiContainer = new egret.DisplayObjectContainer();
         this.addChild(this.uiContainer);
 
@@ -99,6 +106,7 @@ class LoadingUI extends egret.Sprite{
 
     }
     private onComplete(e:egret.Event):void{
+        // e.target
         var urlLoader:egret.URLLoader = <egret.URLLoader>e.target;
         var texture = urlLoader.data;
         if(urlLoader._request.url == this.bgUrl) {

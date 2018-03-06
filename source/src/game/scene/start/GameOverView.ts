@@ -96,10 +96,10 @@ class GameOverView extends egret.Sprite
         this.spZaiLai.x = 170;
         this.spFenXiang.x = 330;
 
-//        if(!EgretShare.canShare){
+            //        if(!EgretShare.canShare){
         if(egret.Capabilities.runtimeType == egret.RuntimeType.NATIVE){
-//            this.spGengduo.x = 82;
-//            this.spZaiLai.x = 260;
+            //            this.spGengduo.x = 82;
+            //            this.spZaiLai.x = 260;
             this.thisContainer.removeChild(this.spGengduo);
             this.thisContainer.removeChild(this.spFenXiang);
         }
@@ -232,35 +232,46 @@ class GameOverView extends egret.Sprite
             lang.y = 340;
             lang.x = 140+lang.width;
             this.langW = lang.x;
+
             this.t1 = new SpecialNumber("number-");
             this.thisContainer.addChild(this.t1);
             this.t1.setValue(0+"");
+
             this.t1.x = lang.x-this.t1.width/2;
             this.t1.y = lang.y+lang.height*0.6-20;
         }else if(num == 3||num == 4)
         {
             this.boo1 = true;
             this.boo2 = true;
+
             var lang:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("lang");
             var huli:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("huli");
+            
             this.thisContainer.addChild(lang);
             this.thisContainer.addChild(huli);
+
             lang.goToPlay("run");
             huli.goToPlay("run");
+            
             huli.y = 320;
             lang.y = 340;
             lang.x = (220+lang.width)/2;
             huli.x = lang.x+lang.width+60;
+            
             this.langW = lang.x;
             this.huliW = huli.x;
+            
             this.t1 = new SpecialNumber("number-");
             this.thisContainer.addChild(this.t1);
             this.t1.setValue(0+"");
+            
             this.t1.x = lang.x-this.t1.width/2;
             this.t1.y = lang.y+lang.height*0.6-20;
+            
             this.t2 =  new SpecialNumber("number-");
             this.thisContainer.addChild(this.t2);
             this.t2.setValue(0+"");
+            
             this.t2.x = huli.x-this.t2.width/2;
             this.t2.y = huli.y+lang.height*0.6;
         }else if(num == 5||num == 6)
@@ -268,34 +279,42 @@ class GameOverView extends egret.Sprite
             this.boo1 = true;
             this.boo2 = true;
             this.boo3 = true;
+            
             var lang:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("lang");
             var huli:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("huli");
             var bianfu:StarlingSwfMovieClip = StarlingSwfFactory.getInstance().makeMc("bianfu");
+            
             this.thisContainer.addChild(lang);
             this.thisContainer.addChild(huli);
             this.thisContainer.addChild(bianfu);
+            
             lang.goToPlay("run");
             huli.goToPlay("run");
             bianfu.goToPlay("run");
+            
             huli.y = 320;
             bianfu.y = 335;
             lang.y = 340;
+            
             lang.x = 90;
             huli.x = lang.x+lang.width+60;
             this.huliW = huli.x;
             this.langW = lang.x;
             bianfu.x = huli.x+huli.width+70;
             this.bianfuW = bianfu.x;
+
             this.t1 = new SpecialNumber("number-");
             this.thisContainer.addChild(this.t1);
             this.t1.setValue(0+"");
             this.t1.x = lang.x-this.t1.width/2;
             this.t1.y = lang.y+lang.height*0.6-20;
+            
             this.t2 =  new SpecialNumber("number-");
             this.thisContainer.addChild(this.t2);
             this.t2.setValue(0+"");
             this.t2.x = huli.x-this.t2.width/2;
             this.t2.y = huli.y+lang.height*0.6;
+            
             this.t3 = new SpecialNumber("number-");
             this.thisContainer.addChild(this.t3);
             this.t3.setValue(0+"");

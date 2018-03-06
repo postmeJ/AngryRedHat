@@ -34,6 +34,7 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+// 没有调用清除???
 var LoadingUI = (function (_super) {
     __extends(LoadingUI, _super);
     function LoadingUI() {
@@ -63,6 +64,11 @@ var LoadingUI = (function (_super) {
         this.textField_power.text = "Powered by Egret Engine";
         this.textField_power.fontFamily = "Black";
         this.textField_power.textAlign = "center";
+        // 使用的URLLoader, 而不是ImageLoader 
+        // http://developer.egret.com/cn/github/egret-docs/Engine2D/net/loadText/index.html
+        // dataFormat值的设置
+        // http://developer.egret.com/cn/apidoc/index/name/egret.URLLoader
+        // 如果 dataFormat 属性是 URLLoaderDataFormat.TEXTURE，则所接收的数据是一个包含位图数据的Texture对象
         var urlLoader = new egret.URLLoader();
         urlLoader.addEventListener(egret.Event.COMPLETE, this.onComplete, this);
         urlLoader.dataFormat = egret.URLLoaderDataFormat.TEXTURE;
@@ -73,6 +79,7 @@ var LoadingUI = (function (_super) {
         urlLoader.load(new egret.URLRequest(this.bgUrl));
         this.bg = new egret.Bitmap();
         this.logo = new egret.Bitmap();
+        // DisplayObjectContainer 类是基本显示列表构造块：一个可包含子项的显示列表节点
         this.uiContainer = new egret.DisplayObjectContainer();
         this.addChild(this.uiContainer);
         this.addChild(this.logo);
@@ -81,6 +88,7 @@ var LoadingUI = (function (_super) {
         this.addChild(this.textField_power);
     };
     LoadingUI.prototype.onComplete = function (e) {
+        // e.target
         var urlLoader = e.target;
         var texture = urlLoader.data;
         if (urlLoader._request.url == this.bgUrl) {
