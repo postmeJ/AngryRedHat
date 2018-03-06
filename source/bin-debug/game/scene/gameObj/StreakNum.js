@@ -1,0 +1,38 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = this && this.__extends || function __extends(t, e) { 
+ function r() { 
+ this.constructor = t;
+}
+for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
+r.prototype = e.prototype, t.prototype = new r();
+};
+/**
+ * Created by Channing on 2014/10/13.
+ */
+var StreakNum = (function (_super) {
+    __extends(StreakNum, _super);
+    function StreakNum() {
+        var _this = _super.call(this) || this;
+        _this.conboW = 0;
+        _this.initView();
+        return _this;
+    }
+    StreakNum.prototype.initView = function () {
+        var combo = ResourceUtils.createBitmapByName("comboImage");
+        this.addChild(combo);
+        this.conboW = combo.width;
+        this.showSorce = new SpecialNumber("number-0");
+        this.showSorce.x = this.conboW / 2 - this.showSorce.width / 2;
+        this.showSorce.y = combo.height + 5;
+        this.addChild(this.showSorce);
+    };
+    StreakNum.prototype.setValue = function (sorce) {
+        if (sorce === void 0) { sorce = 0; }
+        this.showSorce.x = this.conboW / 2 - this.showSorce.width / 2;
+        this.showSorce.setValue(sorce + "");
+    };
+    return StreakNum;
+}(egret.Sprite));
+__reflect(StreakNum.prototype, "StreakNum");

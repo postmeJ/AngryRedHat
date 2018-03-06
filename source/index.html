@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Egret</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #888888;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+
+    <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
+    <!--modules_files_start-->
+	<script egret="lib" src="libs/modules/egret/egret.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.js"></script>
+	<script egret="lib" src="libs/modules/game/game.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.js"></script>
+	<script egret="lib" src="libs/modules/res/res.js"></script>
+	<!--modules_files_end-->
+
+    <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
+    
+
+    <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
+    <!--game_files_start-->
+	<script egret="lib" src="bin-debug/starlingswf/display/SwfSprite.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/SwfFrameInfo.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/display/SwfMovieClip.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/fight/GameFightView.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/SwfAnimationInfo.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/start/GameOverView.js"></script>
+	<script egret="lib" src="bin-debug/game/GameSceneView.js"></script>
+	<script egret="lib" src="bin-debug/game/GameStartView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/fight/GameFightFiveView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/fight/GameFightFourView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/fight/GameFightOneView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/fight/GameFightThreeView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/fight/GameFightTwoView.js"></script>
+	<script egret="lib" src="bin-debug/AlertPanel.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/BackGroundView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/BgView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/BoldBar.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/Bomb.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/Daoju.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/DaZhaoBar.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/Enemy.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/FightButton.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/GirlDistanceBar.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/Hinder.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/House.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/Line.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/RedGirl.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/SourceView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/gameObj/StreakNum.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/game/StarlingSwfUtils.js"></script>
+	<script egret="lib" src="bin-debug/GameData.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/start/MusicView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/start/OptionView.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/start/ReliveView.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/Button.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/ButtonSkin.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/Const.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/GameUtils.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/GS.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/MyButton.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/MyButtonForGame.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/PromptPop.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/ResourceUtils.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/ShareUtils.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/SoundBase.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/SoundUtils.js"></script>
+	<script egret="lib" src="bin-debug/game/utils/SpecialNumber.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/StarlingSwfSheetAnalyzer.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/Swf.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/SwfAssetManager.js"></script>
+	<script egret="lib" src="bin-debug/LoadingUI.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/SwfUpdateManager.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/display/ISwfAnimation.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/display/StarlingSwfMovieClip.js"></script>
+	<script egret="lib" src="bin-debug/Main.js"></script>
+	<script egret="lib" src="bin-debug/game/GamePlayView.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/game/StarlingSwfFactory.js"></script>
+	<script egret="lib" src="bin-debug/starlingswf/game/StarlingSwfMovieClip.js"></script>
+	<script egret="lib" src="bin-debug/game/scene/start/GameInfoView.js"></script>
+	<!--game_files_end-->
+</head>
+<body>
+
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="auto"
+         data-scale-mode="showAll"
+         data-frame-rate="30"
+         data-content-width="480"
+         data-content-height="800"
+         data-show-paint-rect="false"
+         data-multi-fingered="4"
+         data-show-fps="false" data-show-log="false"
+         data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+    </div>
+    <script>
+        egret.runEgret();
+    </script>
+</body>
+</html>
