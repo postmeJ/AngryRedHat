@@ -13,11 +13,15 @@ class GameFightOneView extends GameFightView
         this.oneToTwo = 15;//
         this.curScene = 1;
         GameData.enemySpeed = 6;
+        
         this.timeBoo = 0;
+        
         this.showEnemyTime = 35;
+
         this.showResizeBtn = 35;
         this.totalEnemy = 0;
         this.freeTime = 3;
+        // [15,40]
         this.showXin = Math.floor(Math.random()*(this.totalEnemyNum-this.oneToTwo)+this.oneToTwo);
         egret.Ticker.getInstance().register(this.showEnemyFun,this);
     }
@@ -41,11 +45,11 @@ class GameFightOneView extends GameFightView
 
     public hitOver(e:Enemy,arr:Array<any> = [],index:number = 0):void
     {
-        if(e.type == 1) {
+        if(e.type == 1) { // enemy die
             e.gotoDie();
             e.stopMove = true;
             GameData.langNum++;
-        }else if(e.type == 6) {
+        }else if(e.type == 6) { // enemy not die
             e.alphaToZero();
             e.stopMove = true;
             GameData.blod+=3
@@ -125,6 +129,9 @@ class GameFightOneView extends GameFightView
         }
         this.pushEnemy(enemy2.row,enemy2);
     }
+    // 4个通道保存不同的怪
+    // 在GameFightView中
+    // GameFightView.allArr = [this.oneEnemyArr, this.twoEnemyArr, this.threeEnemyArr, this.fourEnemyArr]
     public pushEnemy(row:number = 0,enemy:Enemy = null):void
     {
         if(row == 1)

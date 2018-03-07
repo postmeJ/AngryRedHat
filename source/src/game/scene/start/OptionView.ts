@@ -1,6 +1,8 @@
 /**
  * Created by Channing on 2014/10/15.
  */
+
+// optionView和MusicView功能一样,仅是部分逻辑不同
 class OptionView extends egret.Sprite
 {
     private helpSp:egret.Sprite;

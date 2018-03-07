@@ -1,13 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = this && this.__extends || function __extends(t, e) { 
- function r() { 
- this.constructor = t;
-}
-for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-r.prototype = e.prototype, t.prototype = new r();
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * Created by Administrator on 2014/10/9.
  */
@@ -27,6 +30,7 @@ var GameFightOneView = (function (_super) {
         _this.showResizeBtn = 35;
         _this.totalEnemy = 0;
         _this.freeTime = 3;
+        // [15,40]
         _this.showXin = Math.floor(Math.random() * (_this.totalEnemyNum - _this.oneToTwo) + _this.oneToTwo);
         egret.Ticker.getInstance().register(_this.showEnemyFun, _this);
         return _this;
@@ -123,6 +127,9 @@ var GameFightOneView = (function (_super) {
         }
         this.pushEnemy(enemy2.row, enemy2);
     };
+    // 4个通道保存不同的怪
+    // 在GameFightView中
+    // GameFightView.allArr = [this.oneEnemyArr, this.twoEnemyArr, this.threeEnemyArr, this.fourEnemyArr]
     GameFightOneView.prototype.pushEnemy = function (row, enemy) {
         if (row === void 0) { row = 0; }
         if (enemy === void 0) { enemy = null; }

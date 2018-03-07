@@ -1,13 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = this && this.__extends || function __extends(t, e) { 
- function r() { 
- this.constructor = t;
-}
-for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-r.prototype = e.prototype, t.prototype = new r();
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * Created by Channing on 2014/10/9.
  */
@@ -15,6 +18,7 @@ var GamePlayView = (function (_super) {
     __extends(GamePlayView, _super);
     function GamePlayView() {
         var _this = _super.call(this) || this;
+        // this.sp一个新的容器
         _this.sp = new egret.Sprite();
         _this.sp.touchEnabled = true;
         _this.addChild(_this.sp);
@@ -23,6 +27,11 @@ var GamePlayView = (function (_super) {
     GamePlayView.prototype.showGame = function (index) {
         GameData.isStartClickOption = true;
         GameData.isStart = false;
+        /**
+         * option btn
+         */
+        // egret的图片节点正确姿势:
+        // sprite > bitmap
         var optionBtn = new egret.Sprite();
         var optionBmp = ResourceUtils.createBitmapByName("optionBtnImage");
         optionBtn.addChild(optionBmp);
@@ -80,12 +89,24 @@ var GamePlayView = (function (_super) {
             return;
         GameData.isStart = true;
         this.sp.removeChild(this.thisContainer);
+        // 本项目中所有的事情都及时的清理了 
         this.sp.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.startHandler, this);
         this.thisContainer = null;
         this.sp.touchEnabled = false;
         this.ready = StarlingSwfFactory.getInstance().makeMc("go");
         this.ready.x = Const.SCENT_WIDTH / 2;
         this.ready.y = Const.SCENT_HEIGHT / 2;
+        //  anchorOffset没有设置???
+        // 是否是在swf文件中处理了???
+        // this.ready.anchorOffsetX = this.ready.width / 2
+        // this.ready.anchorOffsetY = this.ready.height / 2
+        // console.log('Const.SCENT_WIDTH/2', Const.SCENT_WIDTH/2)
+        // console.log('Const.SCENT_HEIGHT/2', Const.SCENT_HEIGHT/2)
+        // console.log('this.ready.x', this.ready.x)
+        // console.log('this.ready.y', this.ready.y)
+        // console.log('this.ready.anchorOffsetX', this.ready.anchorOffsetX)
+        // console.log('this.ready.anchorOffsetY', this.ready.anchorOffsetY)
+        // console.log('this.ready.width', this.ready.width)
         this.addChild(this.ready);
         this.ready.goToPlay("1");
         SoundUtils.instance().playNum();

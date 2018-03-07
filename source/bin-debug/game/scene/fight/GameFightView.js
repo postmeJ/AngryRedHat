@@ -1,13 +1,16 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = this && this.__extends || function __extends(t, e) { 
- function r() { 
- this.constructor = t;
-}
-for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
-r.prototype = e.prototype, t.prototype = new r();
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
  * Created by Channing on 2014/10/9.
  */
@@ -99,23 +102,32 @@ var GameFightView = (function (_super) {
         this.redGirl = new RedGirl();
         this.redGirl.x = Const.SCENT_WIDTH / 2;
         this.redGirl.y = Const.SCENT_HEIGHT - 50;
+        // this.redGirl2 = new RedGirl();
+        // this.redGirl2.x = Const.SCENT_WIDTH / 2 - 50;
+        // this.redGirl2.y = Const.SCENT_HEIGHT - 50;
         this.addChild(this.redGirl);
+        // this.addChild(this.redGirl2);
         this.streakWinNum = new StreakNum();
         this.streakWinNum.x = Const.SCENT_WIDTH / 2 - this.streakWinNum.width / 2;
         this.streakWinNum.y = 86;
         this.addChild(this.streakWinNum);
         this.streakWinNum.visible = false;
+        /**
+         * 4 button and button handler
+         */
         var i = 0;
         var n = 4;
         for (; i < n; i++) {
             var fightButton = new FightButton();
             fightButton.touchEnabled = true;
+            // 因为是add listener, 不能主动添加参数
             fightButton.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onBegin, this);
             fightButton.addEventListener(egret.TouchEvent.TOUCH_END, this.onEnd, this);
             this.uiSp.addChild(fightButton);
             fightButton.x = i * (fightButton.width + 14) + 10;
             fightButton.y = 500;
             fightButton.name = i + "";
+            // this.widthPoint 半
             this.widthPoint = fightButton.width / 2;
             this.btnY = fightButton.y + this.widthPoint * 2;
             this.btnArr.push(fightButton);
@@ -313,6 +325,10 @@ var GameFightView = (function (_super) {
                     }
                 }
                 this.targetName = arr[i].name;
+                // fight btn
+                // 某一个通道的某一个enemy
+                // 某一通道的enemy arr
+                // 这个enemy的index值
                 this.bTitTestE(btn, arr[i], arr, i);
                 break;
             }
@@ -334,6 +350,7 @@ var GameFightView = (function (_super) {
         if (index === void 0) { index = 0; }
         var eY = e.y;
         var bY = b.y - this.widthPoint / 2;
+        // b.y - this.widthPoint / 2 + this.widthPoint * 2 + this.widthPoint
         var circle = bY + this.widthPoint * 2 + this.widthPoint;
         if (eY >= bY) {
             if (eY > circle) {
@@ -365,6 +382,8 @@ var GameFightView = (function (_super) {
                 }
             }
             else if (eY < circle) {
+                // 不同类型的等分判断
+                // http://blog.csdn.net/lidiansheng/article/details/7962770
                 if (eY >= (circle - this.widthPoint * 1.2) && eY < (circle - this.widthPoint * 0.8)) {
                     this.hitFun(e, 1, arr, index);
                 }
@@ -389,6 +408,7 @@ var GameFightView = (function (_super) {
         if (num === void 0) { num = 0; }
         if (arr === void 0) { arr = []; }
         if (index === void 0) { index = 0; }
+        // 双分???
         if (GameData.dubleSorce) {
             num = 1;
         }

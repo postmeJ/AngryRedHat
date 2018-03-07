@@ -6,29 +6,64 @@ class GameOverView extends egret.Sprite
     private bg:egret.Bitmap;
     private thisContainer:egret.Sprite;
     private sorce:SpecialNumber;
+
     private thisNum:number = 0;
+
     private num:number = 0;
+
+    /**
+     * 帧回调用的变量
+     * 对应于t1,t2,t3
+     */
     private t1Num:number = 0;
     private t2Num:number = 0;
     private t3Num:number = 0;
+
+    /**
+     * 三种怪数量score文本
+     */
     private t1:SpecialNumber;
     private t2:SpecialNumber;
     private t3:SpecialNumber;
+
+    /**
+     * 三种怪的实时x位置
+     */
     private huliW:number = 0;
     private langW:number = 0;
     private bianfuW:number = 0;
+
+    /**
+     * "超越了丛林中"+this.tNum+"%的小伙伴"
+     */
     private tt:egret.TextField;
+
+    /**
+     * 随机算的超过多少人的变量
+     */
     private ttNum:number = 0;
+    /**
+     * 帧回调用的变量
+     * 对应于ttNum
+     */
     private tNum:number = 0;
 
     private spGengduo:egret.Sprite;
     private spZaiLai:egret.Sprite;
     private spFenXiang:egret.Sprite;
+    
+    /**
+     * shareImage的egret.Sprite
+     */
     private sp:egret.Sprite;
 
+    /**
+     * 关卡判断使用的变量
+     */
     private boo1:Boolean = false;
     private boo3:Boolean = false;
     private boo2:Boolean = false;
+    
     constructor()
     {
         super();
@@ -42,17 +77,28 @@ class GameOverView extends egret.Sprite
         this.bg = ResourceUtils.createBitmapByName("overBgImage");
         this.thisContainer.addChild(this.bg);
 
+        // enemy
         this.initEnemy(GameData.curScene);
 
+        /**
+         * score
+         * 默认0分的情况下
+         */
         this.sorce = new SpecialNumber("number-0");
         this.thisContainer.addChild(this.sorce);
         this.sorce.setValue(0+"");
         this.sorce.x = Const.SCENT_WIDTH/2-this.sorce.width/2;
         this.sorce.y = Const.SCENT_HEIGHT/6;
+
+        // 心跳
+        // http://edn.egret.com/cn/apidoc/egret/name/egret.Ticker
+        // register() 注册帧回调事件，同一函数的重复监听会被忽略。推荐使用 egret.startTick 替代此方法。
+        // http://developer.egret.com/cn/apidoc/index/name/egret.Ticker
         egret.Ticker.getInstance().register(this.showSorce,this);
 
         this.tt = new egret.TextField();
         this.addChild(this.tt);
+
         if(GameData.isWin)
         {
             var b:number = Math.floor(Math.random()*15+80);
@@ -60,7 +106,8 @@ class GameOverView extends egret.Sprite
             var b:number = Math.floor(Math.random()*40+40);
         }
 
-        this.ttNum = b;
+        // tt
+        this.ttNum = b; // 超过多少人的变量
         this.tt.text = "超越了丛林中"+0+"%的小伙伴";
         this.tt.textColor = 0x000000;
         this.tt.bold = true;
@@ -68,15 +115,27 @@ class GameOverView extends egret.Sprite
         this.tt.x = this.thisContainer.width/2-this.tt.width/2-10;
         this.tt.y = 505;
 
+        /**
+         * 更多游戏
+         */
+        // 我的egret.Sprit()的理解
+        // sprit是一个容器,不过这个容器主要提供给图片和作为布局的图片
         this.spGengduo = new egret.Sprite();
         this.thisContainer.addChild(this.spGengduo);
+        // !!!
+        // sprit > bitmap
+        // spGengduo > gengduo
         var gengduo:egret.Bitmap = ResourceUtils.createBitmapByName("btngengduoyouxi");
         this.spGengduo.addChild(gengduo);
         this.spGengduo.touchEnabled = true;
+
         this.spGengduo.addEventListener(egret.TouchEvent.TOUCH_TAP,this.toGengDuoView,this);
 
         //EgretShare.setShareContent("我的小红帽干掉了"+(GameData.langNum+GameData.huliNum+GameData.bianfuNum)+"只色狼,获得了"+GameData.sorce+"分,超越了"+b+"%的小伙伴.");
 
+        /**
+         * 再来一局
+         */
         this.spZaiLai = new egret.Sprite();
         this.thisContainer.addChild(this.spZaiLai);
         var zailai:egret.Bitmap = ResourceUtils.createBitmapByName("btnzailaiyici");
@@ -84,6 +143,9 @@ class GameOverView extends egret.Sprite
         this.spZaiLai.touchEnabled = true;
         this.spZaiLai.addEventListener(egret.TouchEvent.TOUCH_TAP,this.toGameStartView,this);
 
+        /**
+         * 分享
+         */
         this.spFenXiang = new egret.Sprite();
         this.thisContainer.addChild(this.spFenXiang);
         var fenxiang:egret.Bitmap = ResourceUtils.createBitmapByName("btnfenxiang");
@@ -91,6 +153,9 @@ class GameOverView extends egret.Sprite
         this.spFenXiang.touchEnabled = true;
         this.spFenXiang.addEventListener(egret.TouchEvent.TOUCH_TAP,this.toShareView,this);
 
+        /**
+         * 
+         */
         this.spGengduo.y = this.spFenXiang.y = this.spZaiLai.y = 600;
         this.spGengduo.x = 12;
         this.spZaiLai.x = 170;
@@ -104,6 +169,9 @@ class GameOverView extends egret.Sprite
             this.thisContainer.removeChild(this.spFenXiang);
         }
 
+        /**
+         * shareImage
+         */
         this.sp = new egret.Sprite();
         this.addChild(this.sp);
         var bg:egret.Bitmap = ResourceUtils.createBitmapByName("shareImage");
@@ -119,8 +187,24 @@ class GameOverView extends egret.Sprite
         this.thisContainer.y = Const.SCENT_HEIGHT/2-this.thisContainer.height/2+30;
     }
 
+    
+    /**
+     * 修改和展示 等分和杀死不同的怪的数量
+     * 
+     * @private
+     * @param {egret.Event} e 
+     * @memberof GameOverView
+     */
     private showSorce(e:egret.Event):void
-    {
+    {      
+        /**
+         * for test
+         */
+        // GameData.sorce = 20000
+        // GameData.langNum = 10
+        // GameData.huliNum = 10
+        // GameData.bianfuNum = 10
+        console.log('showScore')
         this.num++;
         if(this.thisNum<GameData.sorce) {
             this.thisNum += this.num;
@@ -148,7 +232,7 @@ class GameOverView extends egret.Sprite
         if(this.boo2){
             if(this.t2Num<GameData.huliNum)
             {
-                this.t2Num+=3;
+                this.t2Num+=3; // why???
                 if(this.t2Num>GameData.huliNum)
                 {
                     this.t2Num = GameData.huliNum;
@@ -191,7 +275,8 @@ class GameOverView extends egret.Sprite
         //EgretShare.share();
     }
     private toGengDuoView(e:egret.TouchEvent):void
-    {
+    {   
+        // 展示more game
         //EgretShare.moreGame();
         this.spGengduo.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.toGengDuoView,this);
     }
@@ -208,21 +293,32 @@ class GameOverView extends egret.Sprite
         GameData.stopCreateEnemy = 0;
         GameData.redGirlDistance = 0;
         GameData.blod = 5;
+
         this.spGengduo.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.toGengDuoView,this);
         this.spFenXiang.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.toShareView,this);
         this.spZaiLai.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.toGameStartView,this);
+
+        // 删除子删除自己
         this.removeChildren();
         if(this.parent)
             this.parent.removeChild(this);
+        
         GameSceneView._gameScene.start();
     }
+    /**
+     * 没有被使用
+     * 
+     * @private
+     * @param {egret.TouchEvent} e 
+     * @memberof GameOverView
+     */
     private touchShare(e:egret.TouchEvent):void
     {
         this.sp.visible = false;
     }
 
     private initEnemy(num:number = 0):void
-    {
+    {   
         if(num == 1||num == 2)
         {
             this.boo1 = true;
@@ -239,7 +335,8 @@ class GameOverView extends egret.Sprite
 
             this.t1.x = lang.x-this.t1.width/2;
             this.t1.y = lang.y+lang.height*0.6-20;
-        }else if(num == 3||num == 4)
+        }
+        else if(num == 3||num == 4)
         {
             this.boo1 = true;
             this.boo2 = true;
@@ -274,7 +371,8 @@ class GameOverView extends egret.Sprite
             
             this.t2.x = huli.x-this.t2.width/2;
             this.t2.y = huli.y+lang.height*0.6;
-        }else if(num == 5||num == 6)
+        }
+        else if(num == 5||num == 6)
         {
             this.boo1 = true;
             this.boo2 = true;

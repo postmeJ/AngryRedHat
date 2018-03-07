@@ -23,6 +23,9 @@ var GameData = (function () {
     GameData.count = 0;
     GameData.bgSpeed = 0;
     GameData.profectNum = 0;
+    /**
+     * 杀的怪数量
+     */
     GameData.langNum = 0;
     GameData.huliNum = 0;
     GameData.bianfuNum = 0;

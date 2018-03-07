@@ -12,6 +12,7 @@ class GamePlayView extends egret.Sprite{
     constructor()
     {
         super();
+        // this.sp一个新的容器
         this.sp = new egret.Sprite();
         this.sp.touchEnabled = true;
         this.addChild(this.sp);
@@ -20,6 +21,12 @@ class GamePlayView extends egret.Sprite{
     {
         GameData.isStartClickOption = true;
         GameData.isStart = false;
+        
+        /**
+         * option btn
+         */
+        // egret的图片节点正确姿势:
+        // sprite > bitmap
         var optionBtn:egret.Sprite = new egret.Sprite();
         var optionBmp:egret.Bitmap = ResourceUtils.createBitmapByName("optionBtnImage");
         optionBtn.addChild(optionBmp);
@@ -78,14 +85,33 @@ class GamePlayView extends egret.Sprite{
     {
         if(this.optionView.visible == true) return;
         if(GameData.isClickBtn) return;
+        
         GameData.isStart = true;
         this.sp.removeChild(this.thisContainer);
+
+        // 本项目中所有的事情都及时的清理了 
         this.sp.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.startHandler, this);
+
         this.thisContainer = null;
         this.sp.touchEnabled = false;
+
         this.ready = StarlingSwfFactory.getInstance().makeMc("go");
         this.ready.x = Const.SCENT_WIDTH/2;
         this.ready.y = Const.SCENT_HEIGHT/2;
+
+        //  anchorOffset没有设置???
+        // 是否是在swf文件中处理了???
+
+        // this.ready.anchorOffsetX = this.ready.width / 2
+        // this.ready.anchorOffsetY = this.ready.height / 2
+        // console.log('Const.SCENT_WIDTH/2', Const.SCENT_WIDTH/2)
+        // console.log('Const.SCENT_HEIGHT/2', Const.SCENT_HEIGHT/2)
+        // console.log('this.ready.x', this.ready.x)
+        // console.log('this.ready.y', this.ready.y)
+        // console.log('this.ready.anchorOffsetX', this.ready.anchorOffsetX)
+        // console.log('this.ready.anchorOffsetY', this.ready.anchorOffsetY)
+        // console.log('this.ready.width', this.ready.width)
+        
         this.addChild(this.ready);
         this.ready.goToPlay("1");
         SoundUtils.instance().playNum();
