@@ -57,6 +57,7 @@ var BackGroundView = (function (_super) {
                 rightWall.initView(5, 2);
                 break;
         }
+        // 定位
         this.addChild(rightWall);
         this.addChild(leftWall);
         rightWall.x = Const.SCENT_WIDTH - rightWall.width;

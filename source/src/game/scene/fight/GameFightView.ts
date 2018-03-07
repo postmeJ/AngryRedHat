@@ -76,15 +76,19 @@ class GameFightView extends egret.Sprite {
         this.oneToTwo = 20;
         GameData.redGirlDistance = 0;
         GameFightView.allArr = [this.oneEnemyArr, this.twoEnemyArr, this.threeEnemyArr, this.fourEnemyArr];
-        this.initView();
+        this.initView(); // background
         this.initLayer();
         this.initBomb();
+        // onUpdate
         egret.Ticker.getInstance().register(this.onFrameHandler, this);
     }
     public initLayer(): void {
         this.dmask = ResourceUtils.createBitmapByName("maskImage");
         this.addChild(this.dmask);
-        this.dmask.visible = false;
+        this.dmask.visible = false; // ???
+
+        // 大招???
+        // 还没有大招
         var i: number = 0;
         var n: number = 10;
         for (; i < n; i++) {
@@ -96,25 +100,40 @@ class GameFightView extends egret.Sprite {
             this.dazhaoArr.push(this.dazhaoMc);
         }
 
+        // enemy容器
         this.enemySp = new egret.Sprite();
         this.addChild(this.enemySp);
 
+        //
         this.uiSp = new egret.Sprite();
         this.addChild(this.uiSp);
 
+        // 弓箭的容器
         this.bombSp = new egret.Sprite();
         this.addChild(this.bombSp);
 
+
+
+
+        /**
+         * 受伤提示
+         */
         this.shan = ResourceUtils.createBitmapByName("shanImage");
         this.addChild(this.shan);
         this.shan.visible = false;
 
+        /**
+         * house
+         */
         this.houseSp = new House();
         this.addChild(this.houseSp);
         this.houseSp.y = -this.houseSp.height;
         this.houseSp.x = -66;
         this.houseSp.visible = false;
 
+        /**
+         * red girl
+         */
         this.redGirl = new RedGirl();
         this.redGirl.x = Const.SCENT_WIDTH / 2;
         this.redGirl.y = Const.SCENT_HEIGHT - 50;
@@ -136,6 +155,7 @@ class GameFightView extends egret.Sprite {
         /**
          * 4 button and button handler
          */
+        // 在哪里被addChild
         var i: number = 0;
         var n: number = 4;
         for (; i < n; i++) {
@@ -157,30 +177,56 @@ class GameFightView extends egret.Sprite {
             this.btnArr.push(fightButton);
         }
 
+        /**
+         * 血条
+         */
         this.blodBar = new BoldBar();
         this.uiSp.addChild(this.blodBar);
         this.blodBar.x = Const.SCENT_WIDTH / 2 - this.blodBar.width / 2 - 30;
         this.blodBar.y = 30;
         this.blodBar.scaleBlodX();
+
+        /**
+         * 分数
+         */
         this.sorceView = new SourceView();
         this.sorceView.setValue(GameData.sorce);
         this.uiSp.addChild(this.sorceView);
         this.sorceView.x = Const.SCENT_WIDTH / 2 * 1.2 - 40;
         this.sorceView.y = 5;
+
+        /**
+         * girl distance bar
+         */
         this.girlHead = new GirlDistanceBar();
         this.uiSp.addChild(this.girlHead);
         this.girlHead.x = Const.SCENT_WIDTH - 40;
         this.girlHead.y = Const.SCENT_HEIGHT / 10 - 30;
+
+
+        /**
+         * fever
+         */
+        /**
+         * dazhao
+         */
         //        this.enemyNum = StarlingswfMovieClip.swfFrame["href"];
         var fever: egret.Bitmap = ResourceUtils.createBitmapByName("feverImage");
         this.uiSp.addChild(fever);
         fever.x = this.blodBar.x;
         fever.y = 5;
+
         this.dazhaoBar = new DaZhaoBar();
         this.uiSp.addChild(this.dazhaoBar);
         this.dazhaoBar.initView();
         this.dazhaoBar.x = fever.width + 5;
         this.dazhaoBar.y = 5;
+
+        // 还没有使用到
+        /**
+         * promptPop
+         */
+        // 模拟对象池
         i = 0;
         n = 10;
         var prom: PromptPop;
@@ -191,9 +237,18 @@ class GameFightView extends egret.Sprite {
             this.popArr.push(prom);
         }
     }
+
+    /**
+     * 提示
+     * 
+     * @param {string} [str=""] 
+     * @memberof GameFightView
+     */
     public popProm(str: string = ""): void {
         var i: number = 0;
-        var n: number = this.popArr.length;
+        var n: number = this.popArr.length; // 10
+        
+        // 
         for (; i < n; i++) {
             if (this.popArr[i].targetMc.visible == false) {
                 this.popArr[i].show(str);
@@ -201,6 +256,11 @@ class GameFightView extends egret.Sprite {
             }
         }
     }
+    /**
+     * 初始化弓箭
+     * 
+     * @memberof GameFightView
+     */
     public initBomb(): void {
         var i: number = 0;
         var n: number = 10;
@@ -214,15 +274,32 @@ class GameFightView extends egret.Sprite {
     }
     public initEnemy(type: number) {
     }
+    /**
+     * initView
+     * 初始化地图
+     * 
+     * @memberof GameFightView
+     */
     public initView(): void {
         this.bg = new BgView();
         this.addChild(this.bg);
         this.bg.initView(GameData.curScene);
     }
+
+    // onUpdate
     public onFrameHandler(e: egret.Event): void {
         if (!GameData.isPause) {
+            /**
+             *  更新地图
+             */
             this.bg.updata();
-            if (this.win) {
+            
+            /**
+             * win
+             * this.win判断,而不是GameData.isWin
+             * 可能出于场景切换的问题来考虑
+             */
+            if (this.win) { 
                 this.houseSp.y += GameData.bgSpeed;
                 if (this.houseSp.y >= -80) {
                     GameData.bgSpeed = 3;
@@ -231,7 +308,9 @@ class GameFightView extends egret.Sprite {
                     this.houseSp.y = -80
                 }
             }
+            
             this.playDaZhao();
+            
             if (GameData.dubleSorce) {
                 GameData.curTimeNum++;
                 if (GameData.curTimeNum >= 300) {
@@ -239,6 +318,7 @@ class GameFightView extends egret.Sprite {
                     GameData.dubleSorce = false;
                 }
             }
+            
             if (GameData.sheDie) {
                 GameData.sheTimeNum++;
                 if (GameData.sheTimeNum >= 400) {
@@ -246,8 +326,11 @@ class GameFightView extends egret.Sprite {
                     GameData.sheDie = false;
                 }
             }
-
+            /**
+             * GirlDistanceBar的girl head
+             */
             this.girlHead.moveHead(this.totalEnemyNum, this.freeTime);
+
             this.timeBoo++;
             if (this.onLockBtn) {
                 this.timeBoo1++;
@@ -307,20 +390,29 @@ class GameFightView extends egret.Sprite {
     public onBegin(e: egret.TouchEvent): void {
         if (this.onLockBtn) return;
         var curNum: number = <number>e.currentTarget.name;
-        this.fire(e.currentTarget);
+        this.fire(e.currentTarget); // fight btn
         this.hitTestObj(curNum, curNum);
         (<FightButton>e.currentTarget).goPlay(1);
     }
     public fire(btn: FightButton): void {
-        var length: number = this.bombArr.length;
+        var length: number = this.bombArr.length; // 10
         var i: number = 0;
+
+        // 没有对象池
+        // 而是固定个数10个
+        // 
         for (; i < length; i++) {
             if (this.bombArr[i].visible == false) {
                 this.isFire = true;
+                
+                // 每次都重新设置原点
                 (<Bomb>this.bombArr[i]).x = Const.SCENT_WIDTH / 2;
                 (<Bomb>this.bombArr[i]).y = 750;
+
+                // 中心点
                 (<Bomb>this.bombArr[i]).lastX = btn.x + this.widthPoint;
                 (<Bomb>this.bombArr[i]).lastY = btn.y + this.widthPoint;
+                
                 (<Bomb>this.bombArr[i]).move();
                 (<Bomb>this.bombArr[i]).visible = true;
                 break;
@@ -530,12 +622,19 @@ class GameFightView extends egret.Sprite {
         this.onLockBtn = true;
         this.houseSp.visible = true;
         this.stopPanduan = true;
+        // 修改了bgSpeed???
         GameData.bgSpeed = 6;
+
         this.win = true;
+
         this.dazhaoBar.visible = false;
         this.sorceView.visible = false;
         this.blodBar.visible = false;
         this.girlHead.visible = false;
+        
+        /**
+         * 取消攻击按钮事件
+         */
         var i: number = 0;
         var n: number = this.btnArr.length;
         for (; i < n; i++) {
@@ -547,7 +646,9 @@ class GameFightView extends egret.Sprite {
         egret.Tween.get(this.redGirl).wait(1000).to({ "y": 240 }, 1500).call(this.func1, this);
     }
     private func1(): void {
+        // 修改了redGirl的swf动画效果
         this.redGirl.gotoWin();
+        // 240 -> 230 + 回头 
         egret.Tween.get(this.redGirl).to({ "y": 230 }, 300).call(this.aaa, this);
     }
 
@@ -555,9 +656,14 @@ class GameFightView extends egret.Sprite {
         GameData.count = 0;
         GameData.profectNum = 0;
         this.dazhaoBar.setValue();
+        // 不应该在这里设置
         GameData.stopCreateEnemy = 0;
         GameData.redGirlDistance = 0;
-
+        
+        /**
+         * win bitmap
+         * stage clear
+         */
         var win: egret.Bitmap = ResourceUtils.createBitmapByName("completeImage");
         this.addChild(win);
         var gW: number = Const.SCENT_WIDTH / 2 - win.width / 2;
@@ -568,6 +674,7 @@ class GameFightView extends egret.Sprite {
         win.x = Const.SCENT_WIDTH / 2 - win.width;
         win.y = Const.SCENT_HEIGHT / 2 - win.height;
 
+        // TODO: 音乐有些问题
         SoundUtils.instance().stopBg();
         SoundUtils.instance().playWin();
         egret.Tween.get(win).to({ "scaleX": 1, "scaleY": 1, "x": gW, "y": gH, "alpha": 1 }, 500).call(this.winaaa, this);
@@ -578,6 +685,9 @@ class GameFightView extends egret.Sprite {
     public over(): void {
     }
     public gameOver(): void {
+        /**
+         * 重置
+         */
         GameData.isWin = false;
         this.onLockBtn = true;
         GameData.isPause = true;
@@ -622,6 +732,7 @@ class GameFightView extends egret.Sprite {
         this.redGirl = null;
         this.houseSp = null;
     }
+    // 在子class中实现了
     public hitOver(e: Enemy, arr: Array<any> = [], index: number = 0): void {
     }
     private shanFun(): void {

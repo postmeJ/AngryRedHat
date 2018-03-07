@@ -1,3 +1,6 @@
+/**
+ * Created by Channing on 2014/10/11.
+ */
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
@@ -11,9 +14,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-/**
- * Created by Channing on 2014/10/11.
- */
+// 弓箭
 var Bomb = (function (_super) {
     __extends(Bomb, _super);
     function Bomb() {
@@ -30,6 +31,11 @@ var Bomb = (function (_super) {
         egret.Ticker.getInstance().register(_this.onFrame, _this);
         return _this;
     }
+    /**
+     * 修改angle
+     *
+     * @memberof Bomb
+     */
     Bomb.prototype.move = function () {
         this.rotation = Math.atan2(this.lastY - this.y, this.lastX - this.x) * 180 / Math.PI;
         this.angle = this.rotation;
@@ -39,6 +45,7 @@ var Bomb = (function (_super) {
             return;
         this.x += this.speed * Math.cos(this.angle / 180 * Math.PI);
         this.y += this.speed * Math.sin(this.angle / 180 * Math.PI);
+        // 斜边小的时候,就不显示了
         var n = Math.sqrt(Math.pow(this.x - this.lastX, 2) + Math.pow(this.y - this.lastY, 2));
         if (n < 15) {
             //播放爆炸动画

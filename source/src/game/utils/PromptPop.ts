@@ -13,6 +13,8 @@ class PromptPop extends egret.Sprite
     private tX:number = 0;
     private tY:number = 0;
     private tw:egret.Tween;
+
+    // 专门写成一个Config,易于辨别
     //提示窗体数据
     public config:Object = {
         "isHide":true,
@@ -107,6 +109,7 @@ class PromptPop extends egret.Sprite
                 this.config[c] = configType[c]!=null?configType[c]:this.config[c];
             }
         }
+        // ???
         this.isHide = this.config["isHide"];
         this.stay = this.config["stayTime"];
         this.tX = this.config["tx"];

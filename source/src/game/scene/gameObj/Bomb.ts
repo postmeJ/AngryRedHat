@@ -1,6 +1,8 @@
 /**
  * Created by Channing on 2014/10/11.
  */
+
+// 弓箭
 class Bomb extends egret.Sprite
 {
     public speed:number = 0;
@@ -18,6 +20,12 @@ class Bomb extends egret.Sprite
         this.speed = 30;
         egret.Ticker.getInstance().register(this.onFrame,this);
     }
+
+    /**
+     * 修改angle
+     * 
+     * @memberof Bomb
+     */
     public move():void
     {
         this.rotation = Math.atan2(this.lastY-this.y,this.lastX-this.x)*180/Math.PI;
@@ -31,6 +39,7 @@ class Bomb extends egret.Sprite
         this.x += this.speed*Math.cos(this.angle/180*Math.PI);
         this.y += this.speed*Math.sin(this.angle/180*Math.PI);
 
+        // 斜边小的时候,就不显示了
         var n:number = Math.sqrt(Math.pow(this.x-this.lastX,2)+Math.pow(this.y-this.lastY,2));
         if(n<15)
         {

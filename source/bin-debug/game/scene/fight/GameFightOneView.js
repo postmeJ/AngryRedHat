@@ -76,6 +76,7 @@ var GameFightOneView = (function (_super) {
     GameFightOneView.prototype.initEnemy = function (type) {
         var enemy1 = new Enemy(type);
         this.totalEnemy++;
+        // ??? redGirlDistance为什么在这个时候更新???
         GameData.redGirlDistance++;
         this.enemySp.addChild(enemy1);
         var b = Math.floor(Math.random() * 4 + 1);

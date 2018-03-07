@@ -23,6 +23,7 @@ var BgView = (function (_super) {
         return _this;
     }
     BgView.prototype.initView = function (num) {
+        // 两张图拼接
         this.bg2 = new BackGroundView(num);
         this.addChild(this.bg2);
         this.bg1 = new BackGroundView(num);
@@ -33,6 +34,7 @@ var BgView = (function (_super) {
         this.bg2.y = this.bg1.y - this.bg2Height;
     };
     BgView.prototype.updata = function () {
+        // 需要想想
         if (this.bg1.y >= Const.SCENT_HEIGHT) {
             this.bg1.y = this.bg2.y - this.bg1Height;
         }

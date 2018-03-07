@@ -166,7 +166,6 @@ var GameOverView = (function (_super) {
         // GameData.langNum = 10
         // GameData.huliNum = 10
         // GameData.bianfuNum = 10
-        console.log('showScore');
         this.num++;
         if (this.thisNum < GameData.sorce) {
             this.thisNum += this.num;

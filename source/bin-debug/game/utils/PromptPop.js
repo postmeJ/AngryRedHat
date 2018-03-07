@@ -26,6 +26,7 @@ var PromptPop = (function (_super) {
         _this.stay = 0;
         _this.tX = 0;
         _this.tY = 0;
+        // 专门写成一个Config,易于辨别
         //提示窗体数据
         _this.config = {
             "isHide": true,
@@ -112,6 +113,7 @@ var PromptPop = (function (_super) {
                 this.config[c] = configType[c] != null ? configType[c] : this.config[c];
             }
         }
+        // ???
         this.isHide = this.config["isHide"];
         this.stay = this.config["stayTime"];
         this.tX = this.config["tx"];

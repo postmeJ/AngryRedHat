@@ -11,6 +11,13 @@
 		"bin-debug/starlingswf/SwfFrameInfo.js",
 		"bin-debug/starlingswf/display/SwfMovieClip.js",
 		"bin-debug/game/scene/fight/GameFightView.js",
+		"bin-debug/game/GameStartView.js",
+		"bin-debug/game/scene/fight/GameFightFiveView.js",
+		"bin-debug/game/scene/fight/GameFightFourView.js",
+		"bin-debug/game/scene/fight/GameFightOneView.js",
+		"bin-debug/game/scene/fight/GameFightThreeView.js",
+		"bin-debug/game/scene/fight/GameFightTwoView.js",
+		"bin-debug/AlertPanel.js",
 		"bin-debug/game/scene/gameObj/BackGroundView.js",
 		"bin-debug/game/scene/gameObj/BgView.js",
 		"bin-debug/game/scene/gameObj/BoldBar.js",
@@ -29,13 +36,6 @@
 		"bin-debug/starlingswf/game/StarlingSwfUtils.js",
 		"bin-debug/game/scene/start/GameInfoView.js",
 		"bin-debug/game/scene/start/GameOverView.js",
-		"bin-debug/game/GameSceneView.js",
-		"bin-debug/game/GameStartView.js",
-		"bin-debug/game/scene/fight/GameFightFiveView.js",
-		"bin-debug/game/scene/fight/GameFightFourView.js",
-		"bin-debug/game/scene/fight/GameFightOneView.js",
-		"bin-debug/game/scene/fight/GameFightThreeView.js",
-		"bin-debug/game/scene/fight/GameFightTwoView.js",
 		"bin-debug/starlingswf/SwfAnimationInfo.js",
 		"bin-debug/GameData.js",
 		"bin-debug/game/scene/start/MusicView.js",
@@ -65,6 +65,6 @@
 		"bin-debug/game/GamePlayView.js",
 		"bin-debug/starlingswf/game/StarlingSwfFactory.js",
 		"bin-debug/starlingswf/game/StarlingSwfMovieClip.js",
-		"bin-debug/AlertPanel.js"
+		"bin-debug/game/GameSceneView.js"
 	]
 }

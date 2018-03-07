@@ -49,7 +49,7 @@ class GameFightOneView extends GameFightView
             e.gotoDie();
             e.stopMove = true;
             GameData.langNum++;
-        }else if(e.type == 6) { // enemy not die
+        }else if(e.type == 6) { // 加血???
             e.alphaToZero();
             e.stopMove = true;
             GameData.blod+=3
@@ -72,6 +72,8 @@ class GameFightOneView extends GameFightView
     {
         var enemy1:Enemy = new Enemy(type);
         this.totalEnemy++;
+
+        // ??? redGirlDistance为什么在这个时候更新???
         GameData.redGirlDistance++;
         this.enemySp.addChild(enemy1);
         var b:number = Math.floor(Math.random()*4+1);

@@ -48,6 +48,7 @@ class BackGroundView extends egret.Sprite
                 break;
         }
 
+        // 定位
         this.addChild(rightWall);
         this.addChild(leftWall);
         rightWall.x = Const.SCENT_WIDTH-rightWall.width;

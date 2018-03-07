@@ -66,16 +66,19 @@ var GameFightView = (function (_super) {
         _this.oneToTwo = 20;
         GameData.redGirlDistance = 0;
         GameFightView.allArr = [_this.oneEnemyArr, _this.twoEnemyArr, _this.threeEnemyArr, _this.fourEnemyArr];
-        _this.initView();
+        _this.initView(); // background
         _this.initLayer();
         _this.initBomb();
+        // onUpdate
         egret.Ticker.getInstance().register(_this.onFrameHandler, _this);
         return _this;
     }
     GameFightView.prototype.initLayer = function () {
         this.dmask = ResourceUtils.createBitmapByName("maskImage");
         this.addChild(this.dmask);
-        this.dmask.visible = false;
+        this.dmask.visible = false; // ???
+        // 大招???
+        // 还没有大招
         var i = 0;
         var n = 10;
         for (; i < n; i++) {
@@ -85,20 +88,32 @@ var GameFightView = (function (_super) {
             this.dazhaoMc.visible = false;
             this.dazhaoArr.push(this.dazhaoMc);
         }
+        // enemy容器
         this.enemySp = new egret.Sprite();
         this.addChild(this.enemySp);
+        //
         this.uiSp = new egret.Sprite();
         this.addChild(this.uiSp);
+        // 弓箭的容器
         this.bombSp = new egret.Sprite();
         this.addChild(this.bombSp);
+        /**
+         * 受伤提示
+         */
         this.shan = ResourceUtils.createBitmapByName("shanImage");
         this.addChild(this.shan);
         this.shan.visible = false;
+        /**
+         * house
+         */
         this.houseSp = new House();
         this.addChild(this.houseSp);
         this.houseSp.y = -this.houseSp.height;
         this.houseSp.x = -66;
         this.houseSp.visible = false;
+        /**
+         * red girl
+         */
         this.redGirl = new RedGirl();
         this.redGirl.x = Const.SCENT_WIDTH / 2;
         this.redGirl.y = Const.SCENT_HEIGHT - 50;
@@ -115,6 +130,7 @@ var GameFightView = (function (_super) {
         /**
          * 4 button and button handler
          */
+        // 在哪里被addChild
         var i = 0;
         var n = 4;
         for (; i < n; i++) {
@@ -132,20 +148,35 @@ var GameFightView = (function (_super) {
             this.btnY = fightButton.y + this.widthPoint * 2;
             this.btnArr.push(fightButton);
         }
+        /**
+         * 血条
+         */
         this.blodBar = new BoldBar();
         this.uiSp.addChild(this.blodBar);
         this.blodBar.x = Const.SCENT_WIDTH / 2 - this.blodBar.width / 2 - 30;
         this.blodBar.y = 30;
         this.blodBar.scaleBlodX();
+        /**
+         * 分数
+         */
         this.sorceView = new SourceView();
         this.sorceView.setValue(GameData.sorce);
         this.uiSp.addChild(this.sorceView);
         this.sorceView.x = Const.SCENT_WIDTH / 2 * 1.2 - 40;
         this.sorceView.y = 5;
+        /**
+         * girl distance bar
+         */
         this.girlHead = new GirlDistanceBar();
         this.uiSp.addChild(this.girlHead);
         this.girlHead.x = Const.SCENT_WIDTH - 40;
         this.girlHead.y = Const.SCENT_HEIGHT / 10 - 30;
+        /**
+         * fever
+         */
+        /**
+         * dazhao
+         */
         //        this.enemyNum = StarlingswfMovieClip.swfFrame["href"];
         var fever = ResourceUtils.createBitmapByName("feverImage");
         this.uiSp.addChild(fever);
@@ -156,6 +187,11 @@ var GameFightView = (function (_super) {
         this.dazhaoBar.initView();
         this.dazhaoBar.x = fever.width + 5;
         this.dazhaoBar.y = 5;
+        // 还没有使用到
+        /**
+         * promptPop
+         */
+        // 模拟对象池
         i = 0;
         n = 10;
         var prom;
@@ -166,10 +202,17 @@ var GameFightView = (function (_super) {
             this.popArr.push(prom);
         }
     };
+    /**
+     * 提示
+     *
+     * @param {string} [str=""]
+     * @memberof GameFightView
+     */
     GameFightView.prototype.popProm = function (str) {
         if (str === void 0) { str = ""; }
         var i = 0;
-        var n = this.popArr.length;
+        var n = this.popArr.length; // 10
+        // 
         for (; i < n; i++) {
             if (this.popArr[i].targetMc.visible == false) {
                 this.popArr[i].show(str);
@@ -177,6 +220,11 @@ var GameFightView = (function (_super) {
             }
         }
     };
+    /**
+     * 初始化弓箭
+     *
+     * @memberof GameFightView
+     */
     GameFightView.prototype.initBomb = function () {
         var i = 0;
         var n = 10;
@@ -190,14 +238,29 @@ var GameFightView = (function (_super) {
     };
     GameFightView.prototype.initEnemy = function (type) {
     };
+    /**
+     * initView
+     * 初始化地图
+     *
+     * @memberof GameFightView
+     */
     GameFightView.prototype.initView = function () {
         this.bg = new BgView();
         this.addChild(this.bg);
         this.bg.initView(GameData.curScene);
     };
+    // onUpdate
     GameFightView.prototype.onFrameHandler = function (e) {
         if (!GameData.isPause) {
+            /**
+             *  更新地图
+             */
             this.bg.updata();
+            /**
+             * win
+             * this.win判断,而不是GameData.isWin
+             * 可能出于场景切换的问题来考虑
+             */
             if (this.win) {
                 this.houseSp.y += GameData.bgSpeed;
                 if (this.houseSp.y >= -80) {
@@ -222,6 +285,9 @@ var GameFightView = (function (_super) {
                     GameData.sheDie = false;
                 }
             }
+            /**
+             * GirlDistanceBar的girl head
+             */
             this.girlHead.moveHead(this.totalEnemyNum, this.freeTime);
             this.timeBoo++;
             if (this.onLockBtn) {
@@ -285,18 +351,23 @@ var GameFightView = (function (_super) {
         if (this.onLockBtn)
             return;
         var curNum = e.currentTarget.name;
-        this.fire(e.currentTarget);
+        this.fire(e.currentTarget); // fight btn
         this.hitTestObj(curNum, curNum);
         e.currentTarget.goPlay(1);
     };
     GameFightView.prototype.fire = function (btn) {
-        var length = this.bombArr.length;
+        var length = this.bombArr.length; // 10
         var i = 0;
+        // 没有对象池
+        // 而是固定个数10个
+        // 
         for (; i < length; i++) {
             if (this.bombArr[i].visible == false) {
                 this.isFire = true;
+                // 每次都重新设置原点
                 this.bombArr[i].x = Const.SCENT_WIDTH / 2;
                 this.bombArr[i].y = 750;
+                // 中心点
                 this.bombArr[i].lastX = btn.x + this.widthPoint;
                 this.bombArr[i].lastY = btn.y + this.widthPoint;
                 this.bombArr[i].move();
@@ -506,12 +577,16 @@ var GameFightView = (function (_super) {
         this.onLockBtn = true;
         this.houseSp.visible = true;
         this.stopPanduan = true;
+        // 修改了bgSpeed???
         GameData.bgSpeed = 6;
         this.win = true;
         this.dazhaoBar.visible = false;
         this.sorceView.visible = false;
         this.blodBar.visible = false;
         this.girlHead.visible = false;
+        /**
+         * 取消攻击按钮事件
+         */
         var i = 0;
         var n = this.btnArr.length;
         for (; i < n; i++) {
@@ -523,15 +598,22 @@ var GameFightView = (function (_super) {
         egret.Tween.get(this.redGirl).wait(1000).to({ "y": 240 }, 1500).call(this.func1, this);
     };
     GameFightView.prototype.func1 = function () {
+        // 修改了redGirl的swf动画效果
         this.redGirl.gotoWin();
+        // 240 -> 230 + 回头 
         egret.Tween.get(this.redGirl).to({ "y": 230 }, 300).call(this.aaa, this);
     };
     GameFightView.prototype.aaa = function () {
         GameData.count = 0;
         GameData.profectNum = 0;
         this.dazhaoBar.setValue();
+        // 不应该在这里设置
         GameData.stopCreateEnemy = 0;
         GameData.redGirlDistance = 0;
+        /**
+         * win bitmap
+         * stage clear
+         */
         var win = ResourceUtils.createBitmapByName("completeImage");
         this.addChild(win);
         var gW = Const.SCENT_WIDTH / 2 - win.width / 2;
@@ -540,6 +622,7 @@ var GameFightView = (function (_super) {
         win.alpha = 0;
         win.x = Const.SCENT_WIDTH / 2 - win.width;
         win.y = Const.SCENT_HEIGHT / 2 - win.height;
+        // TODO: 音乐有些问题
         SoundUtils.instance().stopBg();
         SoundUtils.instance().playWin();
         egret.Tween.get(win).to({ "scaleX": 1, "scaleY": 1, "x": gW, "y": gH, "alpha": 1 }, 500).call(this.winaaa, this);
@@ -550,6 +633,9 @@ var GameFightView = (function (_super) {
     GameFightView.prototype.over = function () {
     };
     GameFightView.prototype.gameOver = function () {
+        /**
+         * 重置
+         */
         GameData.isWin = false;
         this.onLockBtn = true;
         GameData.isPause = true;
@@ -592,6 +678,7 @@ var GameFightView = (function (_super) {
         this.redGirl = null;
         this.houseSp = null;
     };
+    // 在子class中实现了
     GameFightView.prototype.hitOver = function (e, arr, index) {
         if (arr === void 0) { arr = []; }
         if (index === void 0) { index = 0; }

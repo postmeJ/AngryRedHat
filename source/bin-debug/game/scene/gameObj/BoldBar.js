@@ -30,6 +30,9 @@ var BoldBar = (function (_super) {
         this.addChild(blodBar);
         blodBar.x = 38;
         blodBar.y = 8;
+        /**
+         * rectangle
+         */
         this.w = blodBar.width;
         this.r = new egret.Rectangle();
         this.r.x = 0;
@@ -41,7 +44,6 @@ var BoldBar = (function (_super) {
     };
     BoldBar.prototype.scaleBlodX = function () {
         this.r.x = -(this.w - this.w * (GameData.blod / 5));
-        console.log('this.r.x', this.r.x);
     };
     return BoldBar;
 }(egret.Sprite));
