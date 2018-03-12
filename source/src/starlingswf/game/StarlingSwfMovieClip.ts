@@ -38,7 +38,7 @@ class StarlingSwfMovieClip extends starlingswf.SwfMovieClip{
 
     public goToPlay(frame:Object):void{
             this.preFrame = -1;
-            this.currFrameName = frame;
+            this.currFrameName = frame; // 当前frame名字
             this.gotoAndPlay(frame);
 
     }

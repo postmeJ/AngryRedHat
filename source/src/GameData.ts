@@ -14,6 +14,7 @@ class GameData{
     public static redGirlDistance:number = 0;
     public static sorce:number =0;
     public static blod:number = 5;
+    // public static blod:number = 9999;
     public static enemySpeed:number = 0;
     public static stopCreateEnemy:number = 0;
     public static stopEnemyBoo:Boolean = false;

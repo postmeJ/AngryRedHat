@@ -8,23 +8,30 @@ class GameFightOneView extends GameFightView
     {
         super();
         GameData.bgSpeed = 3;
-        this.totalEnemyNum = 40;//
-        this.boshu = 1;
-        this.oneToTwo = 15;//
-        this.curScene = 1;
         GameData.enemySpeed = 6;
+
+        this.totalEnemyNum = 40;//
+        this.boshu = 1; // 波数
+        this.oneToTwo = 15;
+
+        this.curScene = 1;
         
         this.timeBoo = 0;
         
-        this.showEnemyTime = 35;
+        this.showEnemyTime = 35; // 35个'帧时'
 
         this.showResizeBtn = 35;
-        this.totalEnemy = 0;
+        this.totalEnemy = 0; // 目前有多少的怪数量
         this.freeTime = 3;
+
         // [15,40]
         this.showXin = Math.floor(Math.random()*(this.totalEnemyNum-this.oneToTwo)+this.oneToTwo);
+
         egret.Ticker.getInstance().register(this.showEnemyFun,this);
     }
+    /**
+     * 没有实际使用
+     */
     private showEnemyFun():void
     {
         if(this.isShowTwoEnemy)
@@ -37,6 +44,9 @@ class GameFightOneView extends GameFightView
             }
         }
     }
+    /**
+     * 修改
+     */
     public showTime():void
     {
         this.isShowTwoEnemy = true;
@@ -45,7 +55,7 @@ class GameFightOneView extends GameFightView
 
     public hitOver(e:Enemy,arr:Array<any> = [],index:number = 0):void
     {
-        if(e.type == 1) { // enemy die
+        if(e.type == 1) { // lang die
             e.gotoDie();
             e.stopMove = true;
             GameData.langNum++;
@@ -54,6 +64,7 @@ class GameFightOneView extends GameFightView
             e.stopMove = true;
             GameData.blod+=3
             if(GameData.blod>5) GameData.blod = 5;
+            // if(GameData.blod>5) GameData.blod = 9999;
             this.blodBar.scaleBlodX();
         }
     }
@@ -81,6 +92,7 @@ class GameFightOneView extends GameFightView
         enemy1.x = this.btnArr[b-1].x+this.widthPoint;
         enemy1.name="enemy1_1"+this.totalEnemy;
         this.pushEnemy(enemy1.row,enemy1);
+        // ??? y值在哪里
 
         if(this.isShowTwoEnemy)
         {
@@ -88,7 +100,7 @@ class GameFightOneView extends GameFightView
 
             if(this.totalEnemy == this.showXin)
             {
-                enemy2 = new Enemy(6);
+                enemy2 = new Enemy(6); // 药
                 this.enemySp.addChild(enemy2);
                 enemy2.name="enemy2_d"+this.totalEnemy;
                 this.isShowDaoJu(enemy2,enemy1);
@@ -98,7 +110,7 @@ class GameFightOneView extends GameFightView
             var n:number = Math.floor(Math.random()*4+1);
             if(n == 1)
             {
-                var enemy3 = new Enemy(1);
+                var enemy3 = new Enemy(1); // 狼
                 this.enemySp.addChild(enemy3);
                 enemy3.name="enemy2_1"+this.totalEnemy;
                 this.isShowDaoJu(enemy3,enemy1);
@@ -110,27 +122,28 @@ class GameFightOneView extends GameFightView
         var nn:number = enemy1.row;
         if(nn == 1)
         {
-            var b:number =  Math.floor(Math.random()*3 + 2);
+            var b:number =  Math.floor(Math.random()*3 + 2); // [2, 4] => [1,3]
             enemy2.row = b;
             enemy2.x = this.btnArr[b-1].x+this.widthPoint;
         }else if(nn == 2)
-        {
-            var b:number = Math.floor(Math.random()*2+3);
+        { 
+            var b:number = Math.floor(Math.random()*2+3); // [3, 4] => [2, 3]
             enemy2.row = b;
             enemy2.x = this.btnArr[b-1].x+this.widthPoint;
         }else if(nn ==3)
         {
-            var b:number = Math.floor(Math.random()*2+1);
+            var b:number = Math.floor(Math.random()*2+1); // [1, 2] => [0, 1]
             enemy2.row = b;
             enemy2.x = this.btnArr[b-1].x+this.widthPoint;
         }else if(nn ==4)
         {
-            var b:number = Math.floor(Math.random()*3+1);
+            var b:number = Math.floor(Math.random()*3+1); // [1, 3] => [0, 2]
             enemy2.row = b;
             enemy2.x = this.btnArr[b-1].x+this.widthPoint;
         }
         this.pushEnemy(enemy2.row,enemy2);
     }
+
     // 4个通道保存不同的怪
     // 在GameFightView中
     // GameFightView.allArr = [this.oneEnemyArr, this.twoEnemyArr, this.threeEnemyArr, this.fourEnemyArr]
@@ -158,8 +171,10 @@ class GameFightOneView extends GameFightView
     {
         egret.Ticker.getInstance().unregister(this.showEnemyFun,this);
         this.isStart = false;
+
         GameData.curScene = 2;
         egret.Tween.removeAllTweens();
+        
         this.dispose();
         GameSceneView._gameScene.play();
     }
@@ -179,9 +194,16 @@ class GameFightOneView extends GameFightView
         }else if(this.totalEnemy == this.oneToTwo)
         {
             GameData.stopCreateEnemy = 1;
+
+            // 一个计数器
+            // 用于波数修改判断
             GameData.count++;
             GameData.redGirlDistance++;
-            if(GameData.count>this.freeTime)
+            /**
+             * 修改波数
+             */
+            // freeTime用于波数修改的间隔时间
+            if(GameData.count>this.freeTime) 
             {
                 this.boshu = 2;
                 GameData.count = 0;

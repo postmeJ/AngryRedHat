@@ -78,6 +78,7 @@ class GameFightThreeView extends GameFightView
             e.stopMove = true;
             GameData.blod+=3
             if(GameData.blod>5) GameData.blod = 5;
+            // if(GameData.blod>5) GameData.blod = 9999;
             this.blodBar.scaleBlodX();
         }else if(e.type == 7) {
             e.alphaToZero();

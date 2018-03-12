@@ -292,6 +292,7 @@ class GameOverView extends egret.Sprite
         GameData.stopCreateEnemy = 0;
         GameData.redGirlDistance = 0;
         GameData.blod = 5;
+        // GameData.blod = 9999;
 
         this.spGengduo.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.toGengDuoView,this);
         this.spFenXiang.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.toShareView,this);

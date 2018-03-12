@@ -12,11 +12,11 @@
 		{
 			"name": "egret"
 		},
+        {
+            "name": "tween"
+        },
 		{
 			"name": "game"
-		},
-		{
-			"name": "tween"
 		},
 		{
 			"name": "res"

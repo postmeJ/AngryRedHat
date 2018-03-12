@@ -5,9 +5,9 @@ class GamePlayView extends egret.Sprite{
 
     private thisContainer:egret.Bitmap;
     private ready:StarlingSwfMovieClip;
-    private target:GameFightView;
     private optionView:OptionView;
     private sp:egret.Sprite;
+    private target:GameFightView;
 
     constructor()
     {

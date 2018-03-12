@@ -4,16 +4,13 @@ var game_file_list = [
     //----auto game_file_list start----
 	"libs/modules/egret/egret.js",
 	"libs/modules/egret/egret.native.js",
-	"libs/modules/game/game.js",
 	"libs/modules/tween/tween.js",
+	"libs/modules/game/game.js",
 	"libs/modules/res/res.js",
 	"bin-debug/starlingswf/display/SwfSprite.js",
 	"bin-debug/starlingswf/SwfFrameInfo.js",
 	"bin-debug/starlingswf/display/SwfMovieClip.js",
 	"bin-debug/game/scene/fight/GameFightView.js",
-	"bin-debug/game/GameStartView.js",
-	"bin-debug/game/scene/fight/GameFightFiveView.js",
-	"bin-debug/game/scene/fight/GameFightFourView.js",
 	"bin-debug/game/scene/fight/GameFightOneView.js",
 	"bin-debug/game/scene/fight/GameFightThreeView.js",
 	"bin-debug/game/scene/fight/GameFightTwoView.js",
@@ -36,6 +33,9 @@ var game_file_list = [
 	"bin-debug/starlingswf/game/StarlingSwfUtils.js",
 	"bin-debug/game/scene/start/GameInfoView.js",
 	"bin-debug/game/scene/start/GameOverView.js",
+	"bin-debug/game/GameSceneView.js",
+	"bin-debug/game/GameStartView.js",
+	"bin-debug/game/scene/fight/GameFightFiveView.js",
 	"bin-debug/starlingswf/SwfAnimationInfo.js",
 	"bin-debug/GameData.js",
 	"bin-debug/game/scene/start/MusicView.js",
@@ -65,7 +65,7 @@ var game_file_list = [
 	"bin-debug/game/GamePlayView.js",
 	"bin-debug/starlingswf/game/StarlingSwfFactory.js",
 	"bin-debug/starlingswf/game/StarlingSwfMovieClip.js",
-	"bin-debug/game/GameSceneView.js",
+	"bin-debug/game/scene/fight/GameFightFourView.js",
 	//----auto game_file_list end----
 ];
 

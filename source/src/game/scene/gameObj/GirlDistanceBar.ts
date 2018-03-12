@@ -22,6 +22,7 @@ class GirlDistanceBar extends egret.Sprite
         this.head.y = this._heightBar;
     }
 
+    // freeTime波数的间隔时间???
     /**
      *
      * @param totalNum      怪物出怪次数（2个同事出现算一次）

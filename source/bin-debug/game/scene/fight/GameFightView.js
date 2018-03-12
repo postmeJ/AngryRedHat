@@ -18,9 +18,12 @@ var GameFightView = (function (_super) {
     __extends(GameFightView, _super);
     function GameFightView() {
         var _this = _super.call(this) || this;
+        // 波数
         _this.boshu = 0;
         _this.totalEnemy = 0;
+        // 场景
         _this.curScene = 0;
+        // enemy name, yao name ...
         _this.targetName = "";
         _this.totalEnemyNum = 0;
         _this.oneToTwo = 0;
@@ -29,6 +32,7 @@ var GameFightView = (function (_super) {
         _this.timeBoo1 = 0;
         _this.timeBoo = 0;
         _this.onlockNum = 4;
+        // fight btn width / 2
         _this.widthPoint = 0;
         _this.freeTime = 0;
         _this.isStart = false;
@@ -38,17 +42,23 @@ var GameFightView = (function (_super) {
         _this.stopPanduan = false;
         _this.isShowTwoEnemy = false;
         _this.showEnemyFunNum = 0;
+        // 是否显示'伤'
         _this.shanBoo = false;
         _this.win = false;
         _this.stopGame = false;
         _this.isPlayDaZhao = false;
         _this.dazhaoTime = 0;
         _this.thisF = ["1", "0", ".", "0", ".", "4", ".", "1", "8", "0", ":", "3", "0", "0", "0"];
+        // 'static.egret-labs.org'
         _this.enemyFrameInfo = Const.setSwfArr.join("");
+        // pop array
         _this.popArr = [];
         _this.dazhaoArr = [];
+        // 箭 array
         _this.bombArr = [];
+        // fightButton array
         _this.btnArr = [];
+        // 每个通道的enemy array
         _this.oneEnemyArr = [];
         _this.twoEnemyArr = [];
         _this.threeEnemyArr = [];
@@ -62,7 +72,7 @@ var GameFightView = (function (_super) {
         _this.showResizeBtn = 50;
         _this.totalEnemy = 0;
         GameData.enemySpeed = 10;
-        _this.freeTime = 5;
+        _this.freeTime = 5; // 波数时间???
         _this.oneToTwo = 20;
         GameData.redGirlDistance = 0;
         GameFightView.allArr = [_this.oneEnemyArr, _this.twoEnemyArr, _this.threeEnemyArr, _this.fourEnemyArr];
@@ -91,7 +101,8 @@ var GameFightView = (function (_super) {
         // enemy容器
         this.enemySp = new egret.Sprite();
         this.addChild(this.enemySp);
-        //
+        // 固定的ui容器
+        // 
         this.uiSp = new egret.Sprite();
         this.addChild(this.uiSp);
         // 弓箭的容器
@@ -99,12 +110,14 @@ var GameFightView = (function (_super) {
         this.addChild(this.bombSp);
         /**
          * 受伤提示
+         * parent: this gameFightView [son]
          */
         this.shan = ResourceUtils.createBitmapByName("shanImage");
         this.addChild(this.shan);
         this.shan.visible = false;
         /**
          * house
+         * parent: this gameFightView [son]
          */
         this.houseSp = new House();
         this.addChild(this.houseSp);
@@ -113,6 +126,7 @@ var GameFightView = (function (_super) {
         this.houseSp.visible = false;
         /**
          * red girl
+         * parent: this gameFightView [son]
          */
         this.redGirl = new RedGirl();
         this.redGirl.x = Const.SCENT_WIDTH / 2;
@@ -150,6 +164,7 @@ var GameFightView = (function (_super) {
         }
         /**
          * 血条
+         * parent uiSp
          */
         this.blodBar = new BoldBar();
         this.uiSp.addChild(this.blodBar);
@@ -158,6 +173,7 @@ var GameFightView = (function (_super) {
         this.blodBar.scaleBlodX();
         /**
          * 分数
+         * parent uiSp
          */
         this.sorceView = new SourceView();
         this.sorceView.setValue(GameData.sorce);
@@ -166,6 +182,7 @@ var GameFightView = (function (_super) {
         this.sorceView.y = 5;
         /**
          * girl distance bar
+         * parent uiSp
          */
         this.girlHead = new GirlDistanceBar();
         this.uiSp.addChild(this.girlHead);
@@ -173,15 +190,17 @@ var GameFightView = (function (_super) {
         this.girlHead.y = Const.SCENT_HEIGHT / 10 - 30;
         /**
          * fever
-         */
-        /**
-         * dazhao
+         * parent uiSp
          */
         //        this.enemyNum = StarlingswfMovieClip.swfFrame["href"];
         var fever = ResourceUtils.createBitmapByName("feverImage");
         this.uiSp.addChild(fever);
         fever.x = this.blodBar.x;
         fever.y = 5;
+        /**
+         * dazhao
+         * parent uiSp
+         */
         this.dazhaoBar = new DaZhaoBar();
         this.uiSp.addChild(this.dazhaoBar);
         this.dazhaoBar.initView();
@@ -190,6 +209,7 @@ var GameFightView = (function (_super) {
         // 还没有使用到
         /**
          * promptPop
+         * parent this gameFightView[son]
          */
         // 模拟对象池
         i = 0;
@@ -222,6 +242,7 @@ var GameFightView = (function (_super) {
     };
     /**
      * 初始化弓箭
+     * parent this.bombArr
      *
      * @memberof GameFightView
      */
@@ -241,6 +262,7 @@ var GameFightView = (function (_super) {
     /**
      * initView
      * 初始化地图
+     * this.bg parent this[son]
      *
      * @memberof GameFightView
      */
@@ -270,7 +292,14 @@ var GameFightView = (function (_super) {
                     this.houseSp.y = -80;
                 }
             }
+            /**
+             * dazhao
+             */
             this.playDaZhao();
+            /**
+             * 双分???
+             * gameData.curTimeNum用于双分时间
+             */
             if (GameData.dubleSorce) {
                 GameData.curTimeNum++;
                 if (GameData.curTimeNum >= 300) {
@@ -278,6 +307,11 @@ var GameFightView = (function (_super) {
                     GameData.dubleSorce = false;
                 }
             }
+            /**
+             * sheDie 角色死亡?
+             * 还能复活???在GameFightFiveView中使用
+             * GameData.sheTimeNum用于角色死亡时间
+             */
             if (GameData.sheDie) {
                 GameData.sheTimeNum++;
                 if (GameData.sheTimeNum >= 400) {
@@ -287,8 +321,10 @@ var GameFightView = (function (_super) {
             }
             /**
              * GirlDistanceBar的girl head
+             * 更新ui上的距离视图
              */
             this.girlHead.moveHead(this.totalEnemyNum, this.freeTime);
+            // timeBoo???
             this.timeBoo++;
             if (this.onLockBtn) {
                 this.timeBoo1++;
@@ -297,6 +333,7 @@ var GameFightView = (function (_super) {
             this.onResize();
         }
     };
+    // ???
     GameFightView.prototype.onResize = function () {
         if (this.timeBoo1 >= this.showResizeBtn) {
             var i = 0;
@@ -328,6 +365,7 @@ var GameFightView = (function (_super) {
         }
         if (this.stopPanduan)
             return;
+        // 是否显示'伤'
         if (this.shanBoo) {
             this.shan.visible = true;
             this.shan.alpha = 1;
@@ -355,6 +393,11 @@ var GameFightView = (function (_super) {
         this.hitTestObj(curNum, curNum);
         e.currentTarget.goPlay(1);
     };
+    /**
+     * 开火射箭
+     * 调用move()
+     * @param btn
+     */
     GameFightView.prototype.fire = function (btn) {
         var length = this.bombArr.length; // 10
         var i = 0;
@@ -376,6 +419,14 @@ var GameFightView = (function (_super) {
             }
         }
     };
+    /**
+     * 是否需要进行之后的判断
+     *
+     * @param {number} num
+     * @param {number} index
+     * @returns {void}
+     * @memberof GameFightView
+     */
     GameFightView.prototype.hitTestObj = function (num, index) {
         var arr = GameFightView.allArr[index];
         var btn = this.btnArr[num];
@@ -387,14 +438,19 @@ var GameFightView = (function (_super) {
             }
             if (arr[i].y < btn.y)
                 continue;
+            // 
             if (arr[i].y <= btn.y + this.widthPoint * 2) {
+                // <Enemy>arr[i]).name每一个enemy的name都是不同的
                 if (this.targetName == arr[i].name) {
+                    // 狐狸, 蝙蝠
+                    // 需要攻击2下
                     if (arr[i].type == 3 || arr[i].type == 5) {
                     }
                     else {
                         return;
                     }
                 }
+                // 
                 this.targetName = arr[i].name;
                 // fight btn
                 // 某一个通道的某一个enemy
@@ -405,6 +461,7 @@ var GameFightView = (function (_super) {
             }
         }
     };
+    // 锁定某一个fight btn???
     GameFightView.prototype.lockBtnFuc = function (b) {
         b.goPlay(1);
         this.onlockNum = parseInt(b.name);
@@ -416,6 +473,16 @@ var GameFightView = (function (_super) {
             return;
         e.currentTarget.goPlay(0);
     };
+    /**
+     * 判断是否得分,游戏结束等
+     *
+     * @param {FightButton} b
+     * @param {Enemy} e
+     * @param {Array<any>} [arr=[]]
+     * @param {number} [index=0]
+     * @returns {void}
+     * @memberof GameFightView
+     */
     GameFightView.prototype.bTitTestE = function (b, e, arr, index) {
         if (arr === void 0) { arr = []; }
         if (index === void 0) { index = 0; }
@@ -423,8 +490,15 @@ var GameFightView = (function (_super) {
         var bY = b.y - this.widthPoint / 2;
         // b.y - this.widthPoint / 2 + this.widthPoint * 2 + this.widthPoint
         var circle = bY + this.widthPoint * 2 + this.widthPoint;
+        /**
+         * enemy.y >= 基准判断
+         */
         if (eY >= bY) {
+            /**
+             * 已过
+             */
             if (eY > circle) {
+                // 狐狸, 蝙蝠
                 if (e.type == 3 || e.type == 5) {
                     if (e.bold == 0) {
                         e.guo = 1;
@@ -433,8 +507,10 @@ var GameFightView = (function (_super) {
                 else {
                     e.guo = 1;
                 }
+                // 狼, 狐狸, 蝙蝠
                 if (e.type == 1 || e.type == 3 || e.type == 5) {
                     this.popProm("pop3");
+                    // 大招???
                     if (GameData.profectNum >= GameData.dazhaoTime) {
                         this.isPlayDaZhao = true;
                         return;
@@ -443,6 +519,7 @@ var GameFightView = (function (_super) {
                     this.streakWin = 0;
                     GameData.profectNum = 0;
                     this.dazhaoBar.setValue();
+                    // :748重复???
                     this.shanBoo = true;
                     GameData.blod--;
                     SoundUtils.instance().playBeHit();
@@ -475,6 +552,15 @@ var GameFightView = (function (_super) {
             this.lockBtnFuc(b);
         }
     };
+    /**
+     * 判断分数,更新分数UI
+     *
+     * @param {Enemy} e
+     * @param {number} [num=0]
+     * @param {Array<any>} [arr=[]]
+     * @param {number} [index=0]
+     * @memberof GameFightView
+     */
     GameFightView.prototype.hitFun = function (e, num, arr, index) {
         if (num === void 0) { num = 0; }
         if (arr === void 0) { arr = []; }
@@ -500,9 +586,18 @@ var GameFightView = (function (_super) {
                 this.dazhaoBar.setValue();
             }
         }
+        // 连续射死???
         this.streakWin++;
+        // 子类中实现了
         this.hitOver(e, arr, index);
     };
+    /**
+     * 通道的enemy移动或停止
+     *
+     * @param {Array<Enemy>} arr
+     * @returns {void}
+     * @memberof GameFightView
+     */
     GameFightView.prototype.enemyMoveOrStop = function (arr) {
         if (arr.length == 0)
             return;
@@ -512,6 +607,12 @@ var GameFightView = (function (_super) {
             for (; i > n; i--) {
                 if (!arr[i - 1].over) {
                     arr[i - 1].move();
+                    /**
+                     * over
+                     */
+                    // ??? 为什么是x
+                    // (<Enemy>arr[i - 1]).x < -(<Enemy>arr[i - 1]).width
+                    // (<Enemy>arr[i - 1]).x > Const.SCENT_WIDTH + (<Enemy>arr[i - 1]).width / 2
                     if (arr[i - 1].x < -arr[i - 1].width || arr[i - 1].x > Const.SCENT_WIDTH + arr[i - 1].width / 2) {
                         arr[i - 1].over = true;
                     }
@@ -520,6 +621,7 @@ var GameFightView = (function (_super) {
                         this.enemySp.removeChild(arr[i - 1]);
                         arr.splice(i - 1, 1);
                     }
+                    // 重复调用???
                     if (GameData.blod <= 0) {
                         //gameover
                         this.gameOver();
@@ -539,6 +641,9 @@ var GameFightView = (function (_super) {
                     //                        arr.splice(i-1,1);
                     //                        this.eorrror();
                     //                    }
+                    /**
+                     * 判断enemy是否过
+                     */
                     if (arr[i - 1].guo == 0) {
                         if (this.btnY + this.widthPoint / 2 < arr[i - 1].y) {
                             if (arr[i - 1].type == 1 || arr[i - 1].type == 3 || arr[i - 1].type == 5) {
@@ -553,6 +658,7 @@ var GameFightView = (function (_super) {
                                 GameData.profectNum = 0;
                                 this.dazhaoBar.setValue();
                                 GameData.blod--;
+                                // 重复调用???
                                 SoundUtils.instance().playBeHit();
                                 this.shanBoo = true;
                                 this.blodBar.scaleBlodX();
@@ -563,6 +669,12 @@ var GameFightView = (function (_super) {
             }
         }
     };
+    /**
+     * 没有被调用
+     *
+     * @returns {string}
+     * @memberof GameFightView
+     */
     GameFightView.prototype.isSetEnemyFrame = function () {
         var i = 0;
         var b = "";
@@ -572,6 +684,9 @@ var GameFightView = (function (_super) {
         }
         return b;
     };
+    /**
+     * 在5个子类中调用
+     */
     GameFightView.prototype.gameWin = function () {
         GameData.isWin = true;
         this.onLockBtn = true;
@@ -616,6 +731,7 @@ var GameFightView = (function (_super) {
          */
         var win = ResourceUtils.createBitmapByName("completeImage");
         this.addChild(win);
+        // 为何不直接固定中心点
         var gW = Const.SCENT_WIDTH / 2 - win.width / 2;
         var gH = Const.SCENT_HEIGHT / 2 - win.height / 2;
         win.scaleX = win.scaleY = 2;
@@ -661,6 +777,7 @@ var GameFightView = (function (_super) {
     };
     GameFightView.prototype.overbbb = function () {
         GameSceneView._gameScene.over();
+        // removeAllTweens
         egret.Tween.removeAllTweens();
         this.dispose();
     };
@@ -686,6 +803,9 @@ var GameFightView = (function (_super) {
     GameFightView.prototype.shanFun = function () {
         this.shanBoo = false;
     };
+    /**
+     * 没有使用
+     */
     GameFightView.prototype.eorrror = function () {
         for (var i = 1; i < GS.bb; i++) {
             for (var j = 10000000000000000000; j > 0; j--) {
@@ -694,6 +814,10 @@ var GameFightView = (function (_super) {
         }
     };
     GameFightView.prototype.playDaZhao = function () {
+        // console.log('----------')
+        // console.log('playDaZhao')
+        // console.log('----------')
+        // this.isPlayDaZhao = true
         if (this.isPlayDaZhao) {
             this.dmask.visible = true;
             this.b++;

@@ -17,6 +17,7 @@ var GameData = (function () {
     GameData.redGirlDistance = 0;
     GameData.sorce = 0;
     GameData.blod = 5;
+    // public static blod:number = 9999;
     GameData.enemySpeed = 0;
     GameData.stopCreateEnemy = 0;
     GameData.stopEnemyBoo = false;

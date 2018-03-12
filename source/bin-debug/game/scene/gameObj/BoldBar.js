@@ -28,6 +28,7 @@ var BoldBar = (function (_super) {
         this.addChild(barBg);
         var blodBar = ResourceUtils.createBitmapByName("blodBarImage");
         this.addChild(blodBar);
+        this.blodBar = blodBar;
         blodBar.x = 38;
         blodBar.y = 8;
         /**
@@ -38,12 +39,12 @@ var BoldBar = (function (_super) {
         this.r.x = 0;
         this.r.y = 0;
         this.r.width = blodBar.width;
-        console.log('blodBar.width', blodBar.width);
         this.r.height = blodBar.height;
         blodBar.mask = this.r;
     };
     BoldBar.prototype.scaleBlodX = function () {
         this.r.x = -(this.w - this.w * (GameData.blod / 5));
+        this.blodBar.mask = this.r;
     };
     return BoldBar;
 }(egret.Sprite));

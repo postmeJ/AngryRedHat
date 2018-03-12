@@ -4,4 +4,5 @@
 /// <reference path="SwfAnimationInfo.ts" />
 class SwfFrameInfo{
     public static swfNum:string = SwfAnimationInfo.arr.join("");
+    // public static swfNum:string = ["l","o","c","a","t","i","o","n"].join("");
 }

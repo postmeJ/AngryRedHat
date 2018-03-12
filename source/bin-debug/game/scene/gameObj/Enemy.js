@@ -16,6 +16,7 @@ var __extends = (this && this.__extends) || (function () {
  */
 var Enemy = (function (_super) {
     __extends(Enemy, _super);
+    // num type number
     function Enemy(num) {
         var _this = _super.call(this) || this;
         _this.row = 0; //当前所在行
@@ -35,49 +36,59 @@ var Enemy = (function (_super) {
     Enemy.prototype.initView = function (num) {
         this.type = num;
         switch (num) {
+            // 狼
             case 1:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("lang");
                 this.sp.goToPlay("run");
                 this.bold = 1;
                 break;
+            // 猎人
             case 2:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("lieren");
                 this.sp.goToPlay("run");
                 this.bold = 1;
                 break;
+            // 狐狸
             case 3:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("huli");
                 this.sp.goToPlay("run");
                 this.bold = 2;
                 break;
+            // 鸟
             case 4:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("niao");
                 this.sp.goToPlay("run");
                 this.bold = 1;
                 break;
+            // 蝙蝠
             case 5:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("bianfu");
                 this.sp.goToPlay("run");
                 this.bold = 3;
                 break;
+            // 道具 药
             case 6:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("daoju");
-                this.sp.goToPlay("1");
+                this.sp.goToPlay("1"); // 药
                 this.bold = 1;
                 break;
+            // 道具 电
             case 7:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("daoju");
-                this.sp.goToPlay("2");
+                this.sp.goToPlay("2"); // 电
                 this.bold = 1;
                 break;
+            // 道具 靶
             case 8:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("daoju");
                 this.sp.goToPlay("3");
+                ; // 靶
                 this.bold = 1;
                 break;
+            // 道具 箭
             case 9:
                 this.sp = StarlingSwfFactory.getInstance().makeMc("daoju");
-                this.sp.goToPlay("4");
+                this.sp.goToPlay("4"); // 箭
                 this.bold = 1;
                 break;
         }
@@ -100,6 +111,10 @@ var Enemy = (function (_super) {
         if (this.stopMove) {
             this.goOut();
         }
+        // console.log('----------')
+        // console.log('this.name', this.name)
+        // console.log('this.y', this.y)
+        // console.log('----------')
         if (this.y < 820) {
             if (this.onjump) {
                 this.y -= GameData.enemySpeed * 3;

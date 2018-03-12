@@ -20,21 +20,24 @@ var GameFightOneView = (function (_super) {
         var _this = _super.call(this) || this;
         _this.showXin = 0;
         GameData.bgSpeed = 3;
-        _this.totalEnemyNum = 40; //
-        _this.boshu = 1;
-        _this.oneToTwo = 15; //
-        _this.curScene = 1;
         GameData.enemySpeed = 6;
+        _this.totalEnemyNum = 40; //
+        _this.boshu = 1; // 波数
+        _this.oneToTwo = 15;
+        _this.curScene = 1;
         _this.timeBoo = 0;
-        _this.showEnemyTime = 35;
+        _this.showEnemyTime = 35; // 35个'帧时'
         _this.showResizeBtn = 35;
-        _this.totalEnemy = 0;
+        _this.totalEnemy = 0; // 目前有多少的怪数量
         _this.freeTime = 3;
         // [15,40]
         _this.showXin = Math.floor(Math.random() * (_this.totalEnemyNum - _this.oneToTwo) + _this.oneToTwo);
         egret.Ticker.getInstance().register(_this.showEnemyFun, _this);
         return _this;
     }
+    /**
+     * 没有实际使用
+     */
     GameFightOneView.prototype.showEnemyFun = function () {
         if (this.isShowTwoEnemy) {
             this.showEnemyFunNum++;
@@ -44,6 +47,9 @@ var GameFightOneView = (function (_super) {
             }
         }
     };
+    /**
+     * 修改
+     */
     GameFightOneView.prototype.showTime = function () {
         this.isShowTwoEnemy = true;
         GameData.enemySpeed = 7.5;
@@ -62,6 +68,7 @@ var GameFightOneView = (function (_super) {
             GameData.blod += 3;
             if (GameData.blod > 5)
                 GameData.blod = 5;
+            // if(GameData.blod>5) GameData.blod = 9999;
             this.blodBar.scaleBlodX();
         }
     };
@@ -84,10 +91,11 @@ var GameFightOneView = (function (_super) {
         enemy1.x = this.btnArr[b - 1].x + this.widthPoint;
         enemy1.name = "enemy1_1" + this.totalEnemy;
         this.pushEnemy(enemy1.row, enemy1);
+        // ??? y值在哪里
         if (this.isShowTwoEnemy) {
             var enemy2;
             if (this.totalEnemy == this.showXin) {
-                enemy2 = new Enemy(6);
+                enemy2 = new Enemy(6); // 药
                 this.enemySp.addChild(enemy2);
                 enemy2.name = "enemy2_d" + this.totalEnemy;
                 this.isShowDaoJu(enemy2, enemy1);
@@ -95,7 +103,7 @@ var GameFightOneView = (function (_super) {
             }
             var n = Math.floor(Math.random() * 4 + 1);
             if (n == 1) {
-                var enemy3 = new Enemy(1);
+                var enemy3 = new Enemy(1); // 狼
                 this.enemySp.addChild(enemy3);
                 enemy3.name = "enemy2_1" + this.totalEnemy;
                 this.isShowDaoJu(enemy3, enemy1);
@@ -107,22 +115,22 @@ var GameFightOneView = (function (_super) {
         if (enemy1 === void 0) { enemy1 = null; }
         var nn = enemy1.row;
         if (nn == 1) {
-            var b = Math.floor(Math.random() * 3 + 2);
+            var b = Math.floor(Math.random() * 3 + 2); // [2, 4] => [1,3]
             enemy2.row = b;
             enemy2.x = this.btnArr[b - 1].x + this.widthPoint;
         }
         else if (nn == 2) {
-            var b = Math.floor(Math.random() * 2 + 3);
+            var b = Math.floor(Math.random() * 2 + 3); // [3, 4] => [2, 3]
             enemy2.row = b;
             enemy2.x = this.btnArr[b - 1].x + this.widthPoint;
         }
         else if (nn == 3) {
-            var b = Math.floor(Math.random() * 2 + 1);
+            var b = Math.floor(Math.random() * 2 + 1); // [1, 2] => [0, 1]
             enemy2.row = b;
             enemy2.x = this.btnArr[b - 1].x + this.widthPoint;
         }
         else if (nn == 4) {
-            var b = Math.floor(Math.random() * 3 + 1);
+            var b = Math.floor(Math.random() * 3 + 1); // [1, 3] => [0, 2]
             enemy2.row = b;
             enemy2.x = this.btnArr[b - 1].x + this.widthPoint;
         }
@@ -167,8 +175,14 @@ var GameFightOneView = (function (_super) {
         }
         else if (this.totalEnemy == this.oneToTwo) {
             GameData.stopCreateEnemy = 1;
+            // 一个计数器
+            // 用于波数修改判断
             GameData.count++;
             GameData.redGirlDistance++;
+            /**
+             * 修改波数
+             */
+            // freeTime用于波数修改的间隔时间
             if (GameData.count > this.freeTime) {
                 this.boshu = 2;
                 GameData.count = 0;
